@@ -1,0 +1,32 @@
+{
+  "name": "sequlize-boilerplate",
+  "version": "1.0.0",
+  "description": "A NodeJS+Sequelize boilerplate",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.18.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomazmz/node-sequelize-boilerplate.git"
+  },
+  "keywords": [
+    "sequelize",
+    "postgres",
+    "nodejs",
+    "express"
+  ],
+  "author": "thomaz.zandonotto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thomazmz/node-sequelize-boilerplate/issues"
+  },
+  "homepage": "https://github.com/thomazmz/node-sequelize-boilerplate#readme"
+}
