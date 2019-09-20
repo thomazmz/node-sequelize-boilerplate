@@ -1,23 +1,26 @@
-require("dotenv").config({
-    path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
+const express = require('express');
+const bodyParser = require('body-parser');
+const userRoutes = require("./routes/userRoutes");
+const { sequelize } = require('./models');
+const app = express(); 
+
+sequelize.authenticate()
+.then(() => console.log('Postgres database connection has been established successfully.'))
+.catch(err => console.error('Unable to connect to the Postgres database:', err));
+
+// Remove in production
+sequelize.sync({force: true});
+
+app.use(bodyParser.json());
+
+app.use("/user", userRoutes);
+
+app.use((res, req, next) => { 
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
 });
-  
-const express = require("express");
-  
-class App {
-    constructor() {
-      this.express = express();
-      this.middlewares();
-      this.routes();
-    }
-  
-    middlewares() {
-      this.express.use(express.json());
-    }
-  
-    routes() {
-      this.express.use(require("./routes"));
-    }
-}
-  
-module.exports = new App().express;
+
+app.listen(3030);
+
+module.exports = app;

@@ -1,13 +1,17 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
 
-  const User = sequelize.define(
-    "User", {
-      name: DataTypes.STRING,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING
+    const User = sequelize.define('User', {
+    name: Sequelize.STRING,
+    email: Sequelize.STRING,
+    password : Sequelize.STRING
+    }, {});
+    
+    User.findOneById = function(id) {
+        return User.findOne({
+            where: { id }
+        });
     }
-  );
 
-  return User;
-  
-};
+    return User;
+
+}

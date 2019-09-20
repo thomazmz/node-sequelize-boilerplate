@@ -1,37 +1,30 @@
-'use strict';
-
 const fs = require('fs');
-const path = require('path');
+const path = require('path'); 
 const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+const config = require('../../config/database.js');
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+const models = {
+  Sequelize : Sequelize,
+  sequelize : new Sequelize(config)
 }
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
-    db[model.name] = model;
-  });
+fs.readdirSync(__dirname)
+.filter(file => isModel(file))
+.forEach((file) => loadModel(file));
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+function isModel(file) {
+  return (file.indexOf('.') !== 0) && (file !== path.basename(__filename)) && (file.slice(-3) === '.js');
+}
+
+function loadModel(file) {
+  const model = models.sequelize.import(path.join(__dirname, file));
+  models[model.name] = model;
+}
+
+Object.keys(models).forEach((modelName) => {
+  if (models[modelName].associate) {
+    model[modelName].associate(database);
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+module.exports = models;
