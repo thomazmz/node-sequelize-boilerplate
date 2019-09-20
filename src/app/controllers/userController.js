@@ -9,7 +9,6 @@ module.exports = {
     },
 
     create: function(req, res) {
-        console.log(req.body);
         User.create(req.body)
         .then(user => res.status(200).send(user))
         .catch(err => res.status(500).send("Internal server error"));
