@@ -1,26 +1,19 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const userRoutes = require("./routes/userRoutes");
-const { sequelize } = require('./models');
-const app = express(); 
+const models = require('./models');
 
-sequelize.authenticate()
-.then(() => console.log('Postgres database connection has been established successfully.'))
-.catch(err => console.error('Unable to connect to the Postgres database:', err));
+class App {
+    constructor() {
+        this.express = express();
+        this.express.use(express.json);
+        this.express.use(require("./routes"));
+        this.sequelize = models.sequelize;
+    }
 
-// Remove in production
-sequelize.sync({force: true});
+    authenticate() {
+        this.sequelize.authenticate()
+        .then(() => console.log('Postgres connection has been established.'))
+        .catch(err => console.error('Unable to connect to Postgres.', err));
+    }
+}
 
-app.use(bodyParser.json());
-
-app.use("/user", userRoutes);
-
-app.use((res, req, next) => { 
-    const error = new Error('Not Found');
-    error.status = 404;
-    next(error);
-});
-
-app.listen(3030);
-
-module.exports = app;
+module.exports = new App();
