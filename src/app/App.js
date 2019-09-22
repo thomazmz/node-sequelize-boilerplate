@@ -13,12 +13,6 @@ class App {
         this.express.use('/', routes);
     }
 
-    authenticate() {
-        this.sequelize.authenticate()
-        .then(() => console.log('Postgres connection has been established.'))
-        .catch(err => console.error('Unable to connect to Postgres.', err));
-    }
-
     listen(port) {
         this.express.listen(port, () => console.log(`Successfully listening on ${port}`));
     }
