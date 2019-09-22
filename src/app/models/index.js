@@ -5,7 +5,7 @@ const config = require('../../config/database.js');
 
 const models = {
   Sequelize : Sequelize,
-  sequelize : new Sequelize(config)
+  sequelize : new Sequelize(config[process.env.NODE_ENVIRONMENT])
 }
 
 fs.readdirSync(__dirname)
