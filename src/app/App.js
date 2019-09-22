@@ -1,4 +1,3 @@
-
 const express = require('express');
 const models = require('./models');
 const routes = require('./routes');
@@ -14,10 +13,12 @@ class App {
 
     authenticate() {
         this.sequelize.authenticate()
-        .then(() => {
-            console.log('Postgres connection has been established.');
-        })
+        .then(() => console.log('Postgres connection has been established.'))
         .catch(err => console.error('Unable to connect to Postgres.', err));
+    }
+
+    listen(port) {
+        this.express.listen(port, () => console.log(`Successfully listening on ${port}`));
     }
 }
 
