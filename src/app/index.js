@@ -15,7 +15,6 @@ class App {
     authenticate() {
         this.sequelize.authenticate()
         .then(() => {
-            this.sequelize.sync({force: true});
             console.log('Postgres connection has been established.');
         })
         .catch(err => console.error('Unable to connect to Postgres.', err));

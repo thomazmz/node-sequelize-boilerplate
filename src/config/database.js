@@ -8,8 +8,8 @@
   logging : false,
   define : {
     timestamps : true,
-    underscore : true,
+    underscored : true,
     underscoreAll : true,
-    freezeTableName: true
+    freezeTableName: false
   }
 }
