@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
+    "morgan": "^1.9.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.18.4"
@@ -15,9 +16,9 @@
     "sequelize-cli": "^5.5.1"
   },
   "scripts": {
-    "production": "NODE_ENVIRONMENT=prod node src/server.js",
-    "development": "NODE_ENVIRONMENT=dev nodemon src/server.js --ignore tests",
-    "test": "jest"
+    "production": "NODE_ENVIRONMENT=production node src/server.js",
+    "development": "NODE_ENVIRONMENT=development nodemon src/server.js --ignore tests",
+    "tests": "NODE_ENVIRONMENT=test jest"
   },
   "repository": {
     "type": "git",
