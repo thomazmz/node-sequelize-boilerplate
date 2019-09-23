@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, Sequelize) => {
 
@@ -33,9 +34,9 @@ module.exports = (sequelize, Sequelize) => {
 		});
 	}
 
-	// User.prototype.getBarearToken = function() {
-	//     return jwt.sign({ email : this.email, username: this.username }, "secret");
-	// }
+	User.prototype.getBarearToken = function() {
+	    return jwt.sign({ email : this.email, username: this.username }, "secret");
+	}
 
 	return User;
 

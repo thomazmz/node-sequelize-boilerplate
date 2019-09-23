@@ -1,3 +1,5 @@
+const jwtDecode = require('jwt-decode');
+
 const { User } = require('../../../src/app/models');
 const utils = require('../../utils');
 
@@ -30,10 +32,18 @@ describe('User model tests', () => {
         const user = User.build(userParams);
         await user.hashPassword();
         await user.save();
-        const firstTry = await User.verifyCredentials(user, "12345");
+        const firstTry = await User.verifyCredentials(user, userParams.password);
         const secondTry = await User.verifyCredentials(user, "123456");
         expect(firstTry).toBe(true);
         expect(secondTry).toBe(false);
+    });
+
+    it('should verify JWT generation', async () => {
+        const user = await User.create(userParams);
+        const jwtToken = await user.getBarearToken();
+        const jwtTokenDecoded = jwtDecode(jwtToken);
+        expect(jwtTokenDecoded.email).toBe(userParams.email);
+        expect(jwtTokenDecoded.iat).toBeDefined();
     });
 
 });
