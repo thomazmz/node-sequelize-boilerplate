@@ -4,11 +4,13 @@
   "description": "A NodeJS+Sequelize boilerplate",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.18.4"
+    "sequelize": "^5.18.4",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "jest": "^24.9.0",

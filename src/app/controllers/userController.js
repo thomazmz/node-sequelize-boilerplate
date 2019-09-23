@@ -14,4 +14,8 @@ module.exports = {
         .catch(err => res.status(500).send("Internal server error"));
     },
 
+    signIn: function(req, res) {
+        res.status(200).send('Ok');
+    }
+
 }
