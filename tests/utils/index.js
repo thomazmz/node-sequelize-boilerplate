@@ -5,9 +5,9 @@ module.exports = {
 
   createUser : (userData) => {
     return User.create({
-      name: userData.name ? userData.name : 'John Doe',
-      email: userData.email ? userData.email : 'john.doe@email.com',
-      password: userData.password ? userData.password : '12345'
+      name: userData && userData.name ? userData.name : 'John Doe',
+      email: userData && userData.email ? userData.email : 'john.doe@email.com',
+      password: userData && userData.password ? userData.password : '12345'
     });
   },
   

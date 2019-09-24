@@ -15,7 +15,11 @@ module.exports = {
     },
 
     signIn: function(req, res) {
-        res.status(200).send('Ok');
+        User.findOne({ where: { email : req.params.email }})
+        .then(user => user ? User.verifyCredentials(user, req.body.password) : res.status(401).send("Invalid credentials"))
+        .then(user => user ? user.getBarearToken() : res.status(401).send("Invalid credentials"))
+        .then(token => res.status(200).send(token))
+        .catch(err => res.status(500).send("Internal server error"));
     }
 
 }

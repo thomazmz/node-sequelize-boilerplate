@@ -1,5 +1,7 @@
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Op = require('sequelize').Op;
 
 module.exports = (sequelize, Sequelize) => {
 
@@ -12,16 +14,36 @@ module.exports = (sequelize, Sequelize) => {
 	});
 	
 	User.findOneById = function(id) {
-			return User.findOne({
-					where: { id }
-			});
+		return User.findOne({
+			where: { id }
+		});
 	}
 	
-	User.verifyCredentials = function(user, plainPassword) {
-			return new Promise((resolve) => {
-					bcrypt.compare(plainPassword, user.password)
-					.then(result => !result ? resolve(false) : resolve(true));
-			});
+	User.findOneByEmail = function(email) {
+		return User.findOne({ 
+			where: { email } 
+		});
+	}
+
+	User.findOneByStringIdentifier = function(stringIdentifier) {
+		return User.findOne({
+			where: { [Op.or] : { name: stringIdentifier, email: stringIdentifier } }
+		});
+	}
+
+	User.prototype.verifyCredentials = function(stringIdentifier, plainPassword) {
+		return new Promise((resolve) => {
+			User.findOneByStringIdentifier(stringIdentifier)
+			.then(result => !result ? resolve(false) : result.verifyPassword(plainPassword))
+			.then(result => resolve(result))
+		});	
+	}
+
+	User.prototype.verifyPassword = function(plainPassword) {
+		return new Promise((resolve) => {
+			bcrypt.compare(plainPassword, this.password)
+			.then(result => !result ? resolve(false) : resolve(true));
+		});
 	}
 
 	User.prototype.hashPassword = function() {
@@ -35,7 +57,7 @@ module.exports = (sequelize, Sequelize) => {
 	}
 
 	User.prototype.getBarearToken = function() {
-	    return jwt.sign({ email : this.email, username: this.username }, "secret");
+		return jwt.sign({ email : this.email, username: this.username }, "secret");
 	}
 
 	return User;
