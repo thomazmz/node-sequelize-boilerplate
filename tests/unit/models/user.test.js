@@ -49,23 +49,25 @@ describe('User model tests', () => {
         const user = await utils.createUser({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
         const firstTry = await user.verifyPassword('12345');
         const secondTry = await user.verifyPassword('12345!');
-        expect(firstTry).toBe(true);
-        expect(secondTry).toBe(false);
+        expect(firstTry.email).toBe(user.email);
+        expect(firstTry.id).toBe(user.id);
+        expect(firstTry).not.toBeNull();
+        expect(secondTry).toBe(null);
     });
 
     it('should verify credentials', async () => {
-        const user = await utils.createUser({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
-        const firstTry = await user.verifyCredentials('john.doe@gmail.com', '12345');
-        const secondTry = await user.verifyCredentials('john.doe@gmail.com', '12345!');
-        const thirdTry = await user.verifyCredentials('john.doee@gmail.com', '12345');
-        const fourthTry = await user.verifyCredentials('john.doee@gmail.com', '12345!');
-        expect(firstTry).toBe(true);
-        expect(secondTry).toBe(false);
-        expect(thirdTry).toBe(false);
-        expect(fourthTry).toBe(false);
+        const user = await utils.createUser({password: '12345' });
+        const firstTry = await User.verifyCredentials(user.email, '12345');
+        const secondTry = await User.verifyCredentials(user.email, '!12345');
+        const thirdTry = await User.verifyCredentials('!'+user.email, '12345');
+        const fourthTry = await User.verifyCredentials('!'+user.email, '!12345');
+        expect(firstTry.email).toBe(user.email);
+        expect(firstTry.id).toBe(user.id);
+        expect(firstTry).not.toBeNull();
+        expect(secondTry).toBe(null);
+        expect(thirdTry).toBe(null);
+        expect(fourthTry).toBe(null);
     });
-
-
 
     // it('should  validate password', async () => {
     //     const user = User.build({ password: '12345' });

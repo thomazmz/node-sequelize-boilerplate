@@ -31,18 +31,22 @@ module.exports = (sequelize, Sequelize) => {
 		});
 	}
 
-	User.prototype.verifyCredentials = function(stringIdentifier, plainPassword) {
+	User.verifyCredentials = function(stringIdentifier, plainPassword) {
 		return new Promise((resolve) => {
 			User.findOneByStringIdentifier(stringIdentifier)
-			.then(result => !result ? resolve(false) : result.verifyPassword(plainPassword))
-			.then(result => resolve(result))
+			.then(user => !user ? resolve(null) : user.verifyPassword(plainPassword))
+			.then(result => result ? resolve(result) : resolve(null));
 		});	
+	}
+
+	User.prototype.test = function() {
+		return 'Teste';
 	}
 
 	User.prototype.verifyPassword = function(plainPassword) {
 		return new Promise((resolve) => {
 			bcrypt.compare(plainPassword, this.password)
-			.then(result => !result ? resolve(false) : resolve(true));
+			.then(result => !result ? resolve(null) : resolve(this));
 		});
 	}
 
