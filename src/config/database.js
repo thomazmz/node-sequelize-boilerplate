@@ -5,7 +5,6 @@ module.exports = {
     username : "docker",
     password : "docker",
     dialect: "postgres",
-    operatorsAliases : false,
     logging : false,
     define : {
       timestamps : true,
@@ -20,7 +19,6 @@ module.exports = {
     username : "docker",
     password : "docker",
     dialect: "postgres",
-    operatorsAliases : false,
     logging : false,
     define : {
       timestamps : true,
@@ -35,7 +33,6 @@ module.exports = {
     username : process.env.POSTGRES_USERNAME,
     password : process.env.POSTGRES_PASSWORD,
     dialect: "postgres",
-    operatorsAliases : false,
     logging : false,
     define : {
       timestamps : true,
