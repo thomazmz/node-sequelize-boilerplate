@@ -7,7 +7,7 @@ const utils = require('../utils');
 describe('User model tests', () => {
 
 	beforeEach(async () => {
-		utils.truncate();
+		await utils.truncate();
 	});
 
     it('should pass', async () => {
