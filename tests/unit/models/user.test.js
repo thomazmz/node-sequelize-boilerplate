@@ -41,15 +41,12 @@ describe('User model tests', () => {
     })
 
     it('should hash user password', async () => {
-        const user = User.build({ password: '12345' });
-        await user.hashPassword();
+        const user = await utils.createUser({ password: '12345' });
         expect(user.password).not.toBe('12345');
     });
 
     it('should verify user password', async () => {
-        const user = User.build({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
-        await user.hashPassword();
-        await user.save();
+        const user = await utils.createUser({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
         const firstTry = await user.verifyPassword('12345');
         const secondTry = await user.verifyPassword('12345!');
         expect(firstTry).toBe(true);
@@ -57,9 +54,7 @@ describe('User model tests', () => {
     });
 
     it('should verify credentials', async () => {
-        const user = User.build({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
-        await user.hashPassword();
-        await user.save();
+        const user = await utils.createUser({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
         const firstTry = await user.verifyCredentials('john.doe@gmail.com', '12345');
         const secondTry = await user.verifyCredentials('john.doe@gmail.com', '12345!');
         const thirdTry = await user.verifyCredentials('john.doee@gmail.com', '12345');
