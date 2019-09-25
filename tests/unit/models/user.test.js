@@ -77,16 +77,4 @@ describe('User model tests', () => {
         expect(jwtTokenDecoded.iat).toBeDefined();
         expect(jwtTokenDecoded.iat).not.toBeNull();
     });
-
-    // it('should  validate password', async () => {
-    //     const user = User.build({ password: '12345' });
-    //     await user.hashPassword();
-    //     await user.save();
-    //     const firstTry = await User.verifyCredentials(user, userParams.password);
-    //     const secondTry = await User.verifyCredentials(user, userParams.password+"!");
-    //     expect(firstTry).toBe(user);
-    //     expect(secondTry).toBe(null);
-    // });
-
-
 });
