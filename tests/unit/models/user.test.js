@@ -5,9 +5,9 @@ const utils = require('../../utils');
 
 describe('User model tests', () => {
 
-    beforeEach(async () => {
-        await utils.truncate();
-    });
+    // beforeEach(async () => {
+    //     await utils.truncate();
+    // });
 
     it('should create a user', async () => {
         const user = await utils.createUser();
@@ -56,8 +56,8 @@ describe('User model tests', () => {
         const user = await utils.createUser({ password });
         const firstTry = await User.verifyCredentials(user.email, password);
         const secondTry = await User.verifyCredentials(user.email, `!${password}`);
-        const thirdTry = await User.verifyCredentials(`!+${user.email}`, password);
-        const fourthTry = await User.verifyCredentials(`!+${user.email}`, `!${password}`);
+        const thirdTry = await User.verifyCredentials(`!${user.email}`, password);
+        const fourthTry = await User.verifyCredentials(`!${user.email}`, `!${password}`);
         expect(firstTry.email).toBe(user.email);
         expect(firstTry.id).toBe(user.id);
         expect(firstTry).not.toBeNull();
@@ -68,7 +68,7 @@ describe('User model tests', () => {
 
     it('should include proper data on JWT token', async () => {
         const user = await utils.createUser();
-        const jwtToken = await user.getBarearToken();
+        const jwtToken = user.getBarearToken();
         const jwtTokenDecoded = jwtDecode(jwtToken);
         expect(jwtTokenDecoded.email).toBe(user.email);
         expect(jwtTokenDecoded.iat).toBeDefined();

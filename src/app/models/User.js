@@ -39,10 +39,6 @@ module.exports = (sequelize, Sequelize) => {
 		});	
 	}
 
-	User.prototype.test = function() {
-		return 'Teste';
-	}
-
 	User.prototype.verifyPassword = function(plainPassword) {
 		return new Promise((resolve) => {
 			bcrypt.compare(plainPassword, this.password)
@@ -61,7 +57,7 @@ module.exports = (sequelize, Sequelize) => {
 	}
 
 	User.prototype.getBarearToken = function() {
-		return jwt.sign({ email : this.email, username: this.username }, "secret");
+		return jwt.sign({ email : this.email }, "secret");
 	}
 
 	return User;
