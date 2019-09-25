@@ -69,6 +69,15 @@ describe('User model tests', () => {
         expect(fourthTry).toBe(null);
     });
 
+    it('should include proper data on JWT token', async () => {
+        const user = await utils.createUser();
+        const jwtToken = await user.getBarearToken();
+        const jwtTokenDecoded = jwtDecode(jwtToken);
+        expect(jwtTokenDecoded.email).toBe(user.email);
+        expect(jwtTokenDecoded.iat).toBeDefined();
+        expect(jwtTokenDecoded.iat).not.toBeNull();
+    });
+
     // it('should  validate password', async () => {
     //     const user = User.build({ password: '12345' });
     //     await user.hashPassword();
@@ -79,12 +88,5 @@ describe('User model tests', () => {
     //     expect(secondTry).toBe(null);
     // });
 
-    // it('should include user data on JWT token', async () => {
-    //     const user = await User.create(userParams);
-    //     const jwtToken = await user.getBarearToken();
-    //     const jwtTokenDecoded = jwtDecode(jwtToken);
-    //     expect(jwtTokenDecoded.email).toBe(userParams.email);
-    //     expect(jwtTokenDecoded.iat).toBeDefined();
-    // });
 
 });
