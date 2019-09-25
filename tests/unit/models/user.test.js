@@ -28,11 +28,11 @@ describe('User model tests', () => {
         expect(user.email).toBe(findedUser.email);
     })
 
-    it('should find user passing username as unique identifier', async () => {
-        const user = await utils.createUser();
-        const findedUser = await User.findOneByStringIdentifier(user.name);
-        expect(user.id).toBe(findedUser.id);
-    })
+    // it('should find user passing username as unique identifier', async () => {
+    //     const user = await utils.createUser();
+    //     const findedUser = await User.findOneByStringIdentifier(user.name);
+    //     expect(user.id).toBe(findedUser.id);
+    // })
 
     it('should find user passing email as unique identifier', async () => {
         const user = await utils.createUser();
