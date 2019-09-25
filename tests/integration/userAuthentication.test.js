@@ -4,7 +4,7 @@ const jwtDecode = require('jwt-decode');
 const app = require('../../src/app/App').express;
 const utils = require('../utils');
 
-describe('User model tests', () => {
+describe('User authentication tests', () => {
 
 	beforeEach(async () => {
 		await utils.truncate();

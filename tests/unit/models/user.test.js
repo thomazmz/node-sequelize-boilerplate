@@ -28,12 +28,6 @@ describe('User model tests', () => {
         expect(user.email).toBe(findedUser.email);
     })
 
-    // it('should find user passing username as unique identifier', async () => {
-    //     const user = await utils.createUser();
-    //     const findedUser = await User.findOneByStringIdentifier(user.name);
-    //     expect(user.id).toBe(findedUser.id);
-    // })
-
     it('should find user passing email as unique identifier', async () => {
         const user = await utils.createUser();
         const findedUser = await User.findOneByStringIdentifier(user.email);
@@ -41,14 +35,16 @@ describe('User model tests', () => {
     })
 
     it('should hash user password', async () => {
-        const user = await utils.createUser({ password: '12345' });
-        expect(user.password).not.toBe('12345');
+        const password = '12345';
+        const user = await utils.createUser({ password });
+        expect(user.password).not.toBe(password);
     });
 
     it('should verify user password', async () => {
-        const user = await utils.createUser({ name: 'John Doe', email: 'john.doe@gmail.com', password: '12345' });
-        const firstTry = await user.verifyPassword('12345');
-        const secondTry = await user.verifyPassword('12345!');
+        const password = '12345';
+        const user = await utils.createUser({ password });
+        const firstTry = await user.verifyPassword(password);
+        const secondTry = await user.verifyPassword(`!${password}`);
         expect(firstTry.email).toBe(user.email);
         expect(firstTry.id).toBe(user.id);
         expect(firstTry).not.toBeNull();
@@ -56,11 +52,12 @@ describe('User model tests', () => {
     });
 
     it('should verify credentials', async () => {
-        const user = await utils.createUser({password: '12345' });
-        const firstTry = await User.verifyCredentials(user.email, '12345');
-        const secondTry = await User.verifyCredentials(user.email, '!12345');
-        const thirdTry = await User.verifyCredentials('!'+user.email, '12345');
-        const fourthTry = await User.verifyCredentials('!'+user.email, '!12345');
+        const password = '12345';
+        const user = await utils.createUser({ password });
+        const firstTry = await User.verifyCredentials(user.email, password);
+        const secondTry = await User.verifyCredentials(user.email, `!${password}`);
+        const thirdTry = await User.verifyCredentials(`!+${user.email}`, password);
+        const fourthTry = await User.verifyCredentials(`!+${user.email}`, `!${password}`);
         expect(firstTry.email).toBe(user.email);
         expect(firstTry.id).toBe(user.id);
         expect(firstTry).not.toBeNull();
