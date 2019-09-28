@@ -25,7 +25,8 @@
     "production": "NODE_ENVIRONMENT=production node src/server.js",
     "development": "NODE_ENVIRONMENT=development nodemon src/server.js --ignore tests",
     "tests": "NODE_ENVIRONMENT=test jest",
-    "pretest": "NODE_ENV=test sequelize db:migrate"
+    "pretests": "sequelize db:migrate --env test",
+    "posttests": "sequelize db:migrate:undo --env test"
   },
   "repository": {
     "type": "git",

@@ -8,7 +8,8 @@ module.exports = (sequelize, Sequelize) => {
 	const User = sequelize.define('User', {
 		name: Sequelize.STRING,
 		email: Sequelize.STRING,
-		password: Sequelize.STRING
+		password: Sequelize.VIRTUAL,
+		passwordHash: Sequelize.STRING
 	}, {
 		tableName: 'user'
 	});
@@ -41,18 +42,23 @@ module.exports = (sequelize, Sequelize) => {
 
 	User.prototype.verifyPassword = function(plainPassword) {
 		return new Promise((resolve) => {
-			bcrypt.compare(plainPassword, this.password)
+			bcrypt.compare(plainPassword, this.passwordHash)
 			.then(result => !result ? resolve(null) : resolve(this));
 		});
 	}
 
 	User.prototype.hashPassword = function() {
 		return new Promise((resolve) => {
-			bcrypt.hash(this.password, 10)
-			.then((hash) => {
-				this.password = hash
+			if(this.password) {
+				bcrypt.hash(this.password, 10)
+				.then((hash) => {
+					this.passwordHash = hash;
+					this.password = null;
+					resolve(this);
+				});
+			} else {
 				resolve(this);
-			});
+			}
 		});
 	}
 

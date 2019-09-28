@@ -9,12 +9,6 @@ module.exports = {
     .catch(error => ApplicationError.send(response, error));
   },
 
-  create: (request, response) => {
-    User.create(request.body)
-    .then(user => response.status(200).send(user))
-    .catch(error => ApplicationError.send(response, error));
-  },
-
   signIn: (request, response) => {
     User.verifyCredentials(request.body.email, request.body.password)
     .then(user => user ? response.status(200).send({ token : user.getBarearToken() }) : new ApplicationError({ status: 400 }).throw())

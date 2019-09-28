@@ -5,6 +5,15 @@ const { User } = require('../../src/app/models');
 
 module.exports = {
 
+  getUniqueUserParams : () => {
+    const identifier = uniqid();
+    return {
+      name: `John Doe ${identifier}`,
+      email: `john.doe.${identifier}@email.com`,
+      password: identifier
+    }
+  },
+
   createUser : async (userData) => {
     const identifier = uniqid();
     const user = await User.build({

@@ -9,7 +9,6 @@ class App {
         this.sequelize = models.sequelize;
         this.express = express();
         this.express.use(bodyParser.json());
-        this.express.use(morgan('dev'));
         this.express.use('/', routes);
     }
 
