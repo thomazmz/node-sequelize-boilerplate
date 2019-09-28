@@ -57,7 +57,7 @@ module.exports = (sequelize, Sequelize) => {
 	}
 
 	User.prototype.getBarearToken = function() {
-		return jwt.sign({ email : this.email }, "secret");
+		return 'Barear ' + jwt.sign({ email : this.email }, "secret");
 	}
 
 	return User;

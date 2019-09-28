@@ -1,22 +1,33 @@
+const ApplicationError = require("../errors/ApplicationError");
 const { User } = require("../models");
 
 module.exports = {
 
-    findOneById: function(req, res) {
-        User.findOne({ where: { id : req.params.id }})
-        .then(user => user ? res.status(200).send(user) : res.status(204).send("Could not find any correspondent user"))
-        .catch(res.status(500).send("Internal server error"));
-    },
+  findOneById: (request, response) => {
+    User.findOne({ where: { id : req.params.id }})
+    .then(user => user ? response.status(200).send(user) : new ApplicationError({ status: 204 }).throw())
+    .catch(error => ApplicationError.send(response, error));
+  },
 
-    create: function(req, res) {
-        User.create(req.body)
-        .then(user => res.status(200).send(user))
-        .catch(res.status(500).send("Internal server error"));
-    },
+  create: (request, response) => {
+    User.create(request.body)
+    .then(user => response.status(200).send(user))
+    .catch(error => ApplicationError.send(response, error));
+  },
 
-    signIn: function(req, res) {
-        User.verifyCredentials(req.body.email, req.body.password)
-        .then(user => user ? res.status(200).send({ token : `Barear ${user.getBarearToken()}` }) : res.status(400).send("Bad Request"))
-        .catch(err => res.status(500).send('Internal server error'));
-    }
+  signIn: (request, response) => {
+    User.verifyCredentials(request.body.email, request.body.password)
+    .then(user => user ? response.status(200).send({ token : user.getBarearToken() }) : new ApplicationError({ status: 400 }).throw())
+    .catch(error => ApplicationError.send(response, error));
+  },
+
+  signUp: (request, response) => {
+    User.findOneByEmail(request.body.email)
+    .then(result => !result ? User.build(request.body) : new ApplicationError({ status: 422 }).throw())
+    .then(user => user.hashPassword())
+    .then(user => user.save())
+    .then(user => user.getBarearToken())
+    .then(token => response.status(200).send({ token }))
+    .catch(error => ApplicationError.send(response, error));
+  }
 }
