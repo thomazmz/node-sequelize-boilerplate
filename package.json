@@ -6,6 +6,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "express": "^4.17.1",
+    "http-status-codes": "^1.3.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "morgan": "^1.9.1",
@@ -23,7 +24,8 @@
   "scripts": {
     "production": "NODE_ENVIRONMENT=production node src/server.js",
     "development": "NODE_ENVIRONMENT=development nodemon src/server.js --ignore tests",
-    "tests": "NODE_ENVIRONMENT=test jest"
+    "tests": "NODE_ENVIRONMENT=test jest",
+    "pretest": "NODE_ENV=test sequelize db:migrate"
   },
   "repository": {
     "type": "git",
