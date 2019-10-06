@@ -13,6 +13,10 @@ module.exports = (sequelize, Sequelize) => {
 	}, {
 		tableName: 'user'
 	});
+
+	User.associate = function(models) {
+		User.hasMany(models.Post, {as: 'posts'});
+	};
 	
 	User.findOneById = function(id) {
 		return User.findOne({
