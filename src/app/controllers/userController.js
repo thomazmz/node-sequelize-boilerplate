@@ -4,7 +4,7 @@ const { User } = require("../models");
 module.exports = {
 
   findOneById: (request, response) => {
-    User.findOne({ where: { id : req.params.id }})
+    User.findOne({ where: { id : request.params.id }})
     .then(user => user ? response.status(200).send(user) : new ApplicationError({ status: 204 }).throw())
     .catch(error => ApplicationError.send(response, error));
   },

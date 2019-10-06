@@ -10,7 +10,7 @@ module.exports = {
       timestamps : true,
       underscored : true,
       underscoreAll : true,
-      freezeTableName: false
+      freezeTableName: true
     }
   },
   test : {
@@ -24,7 +24,7 @@ module.exports = {
       timestamps : true,
       underscored : true,
       underscoreAll : true,
-      freezeTableName: false
+      freezeTableName: true
     }
   },
   production : {
@@ -38,7 +38,7 @@ module.exports = {
       timestamps : true,
       underscored : true,
       underscoreAll : true,
-      freezeTableName: false
+      freezeTableName: true
     }
   }
 }
