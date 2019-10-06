@@ -4,9 +4,7 @@ module.exports = (sequelize, Sequelize) => {
 		title: Sequelize.STRING,
         content: Sequelize.STRING,
         authorId: Sequelize.INTEGER
-	}, {
-		tableName: 'post'
-    });
+	});
 
     User.associate = function(models) {
         User.belongsTo(models.User, {foreignKey: 'authorId', as: 'author'})

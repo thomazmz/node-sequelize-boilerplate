@@ -10,8 +10,6 @@ module.exports = (sequelize, Sequelize) => {
 		email: Sequelize.STRING,
 		password: Sequelize.VIRTUAL,
 		passwordHash: Sequelize.STRING
-	}, {
-		tableName: 'user'
 	});
 
 	User.associate = function(models) {
