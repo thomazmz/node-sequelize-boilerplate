@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Op = require('sequelize').Op;
@@ -13,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
 	});
 
 	User.associate = function(models) {
-		User.hasMany(models.Post, {as: 'posts'});
+		User.hasMany(models.BlogPost, {as: 'posts'});
 	};
 	
 	User.findOneById = function(id) {

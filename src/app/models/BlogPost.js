@@ -1,15 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
 
-	const Post = sequelize.define('Post', {
+	const BlogPost = sequelize.define('BlogPost', {
 		title: Sequelize.STRING,
         content: Sequelize.STRING,
         authorId: Sequelize.INTEGER
 	});
 
-    User.associate = function(models) {
-        User.belongsTo(models.User, {foreignKey: 'authorId', as: 'author'})
+    BlogPost.associate = function(models) {
+        BlogPost.belongsTo(models.User, {foreignKey: 'authorId', as: 'author'})
     };
     
-	return Post;
+	return BlogPost;
 
 }

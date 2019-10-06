@@ -23,7 +23,7 @@ function loadModel(file) {
 
 Object.keys(models).forEach((modelName) => {
   if (models[modelName].associate) {
-    model[modelName].associate(database);
+    models[modelName].associate(models);
   }
 });
 
