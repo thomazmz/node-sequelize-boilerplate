@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -9,12 +9,7 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
-      uuid: {
-        type: Sequelize.UUID,
-        autoIncrement: false,
-        allowNull: false
-      },
-      name: {
+      user_name: {
         type: Sequelize.STRING,
         allowNull: false
       },

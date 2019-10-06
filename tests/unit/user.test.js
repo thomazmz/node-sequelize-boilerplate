@@ -12,7 +12,7 @@ describe('User model tests', () => {
     it('should create a user', async () => {
         const user = await utils.createUser();
         const findedUser = await User.findOne({ where: { email: user.email } });
-        expect(findedUser.name).toBe(user.name);
+        expect(findedUser.userName).toBe(user.userName);
         expect(findedUser.email).toBe(user.email);
     });
 
