@@ -10,14 +10,14 @@ module.exports = {
   },
 
   create: (request, response) => {
-    response.status(200).send("Create blog poste feature not available yet");
+    response.status(200).send("Create blog post feature not available yet");
   },
 
   update: (request, response) => {
-    response.status(200).send("Update blog poste feature not available yet");
+    response.status(200).send("Update blog post feature not available yet");
   },
 
   delete: (request, response) => {
-    response.status(200).send("Delete blog poste feature not available yet");
+    response.status(200).send("Delete blog post feature not available yet");
   }
 }
