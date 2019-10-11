@@ -5,16 +5,11 @@ module.exports = {
 
     signUp : [
         check('email')
-            .not().isEmpty().withMessage('Email could not be empty.')
+            .not().isEmpty().withMessage('EYou must specify a email.')
             .isEmail().withMessage('Invalid email address.'),
-        check('username')
-            .not().isEmpty().withMessage('Username could not be empty.')
-            .isAlphanumeric().withMessage('Login must be alphanumeric.'),
         check('password')
-            .isLength({ min: 5 }).withMessage('Password must be at least 5 characters in length.')
-            .matches('\[0-9\]').withMessage('Password must contain at least 1 number.')
-            .matches('\[a-z\]').withMessage('Password must contain at least 1 lowercase letter.')
-            .matches('\[A-Z\]').withMessage('Password must contain at least 1 uppercase letter.'),
+            .not().isEmpty().withMessage('You must specify a password.')
+            .isLength({ min: 5 }).withMessage('Password must be at least 5 characters in length.'),
         utils.validateResult
     ],
 
