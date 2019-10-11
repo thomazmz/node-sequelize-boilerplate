@@ -1,4 +1,5 @@
-const { check, validationResult } = require('express-validator');
+const { check } = require('express-validator');
+const utils = require('./utils');
 
 module.exports = {
 
@@ -14,15 +15,7 @@ module.exports = {
             .matches('\[0-9\]').withMessage('Password must contain at least 1 number.')
             .matches('\[a-z\]').withMessage('Password must contain at least 1 lowercase letter.')
             .matches('\[A-Z\]').withMessage('Password must contain at least 1 uppercase letter.'),
-        (req, res, next) => {
-            const errors = validationResult(req)
-            console.log(errors);
-            if (!errors.isEmpty()) {
-                return res.status(422).json({ errors: errors.array() })
-            } else {
-                next();
-            }
-        }
+        utils.validateResult
     ],
 
     signIn : [
@@ -30,11 +23,7 @@ module.exports = {
             .not().isEmpty().withMessage('You must provide a identifier.'),
         check('password')
             .not().isEmpty().withMessage('You must provide a password.'),
-        (req, res, next) => {
-            const errors = validationResult(req)
-            if (!errors.isEmpty()) return res.status(422).json({ errors: errors.array() })
-            else next();
-        }
+        utils.validateResult
     ]
 
 };
