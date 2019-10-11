@@ -3,8 +3,8 @@ const controller = require('../controllers/blogPostController');
 const authorize = require('../middlewares/authorize')
 
 router.get('/:id', controller.findOneById);
-router.post('/', authorize('createBlogPost'), controller.create);
-router.patch('/', authorize('updateBlogPost'), controller.update);
-router.delete('/', authorize('deleteBlogPost'), controller.delete);
+router.post('/', controller.create);
+router.patch('/', controller.update);
+router.delete('/', controller.delete);
 
 module.exports = router;
