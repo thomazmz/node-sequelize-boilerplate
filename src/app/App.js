@@ -9,11 +9,9 @@ class App {
     constructor() {
         this.sequelize = models.sequelize;
         this.express = express();
+        this.express.use(errorHandlerMiddleware);
         this.express.use(bodyParser.json());
         this.express.use('/', routes);
-
-        this.express.use(errorHandlerMiddleware);
-        
     }
 
     listen(port) {
