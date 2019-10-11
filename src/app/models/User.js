@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
 	});
 
 	User.associate = function(models) {
-		User.hasMany(models.BlogPost, {as: 'posts'});
+		User.hasMany(models.Task, {as: 'tasks'});
 	};
 	
 	User.findOneById = function(id) {
