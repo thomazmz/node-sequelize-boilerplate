@@ -3,6 +3,7 @@ const models = require('./models');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const RequestError = require("./errors/RequestError");
 
 class App {
     constructor() {
@@ -10,6 +11,9 @@ class App {
         this.express = express();
         this.express.use(bodyParser.json());
         this.express.use('/', routes);
+
+        this.express.use(errorHandlerMiddleware);
+        
     }
 
     listen(port) {
@@ -18,3 +22,17 @@ class App {
 }
 
 module.exports = new App();
+
+function errorHandlerMiddleware(err, req, res, next) {
+    if (err instanceof RequestError)  {
+        res.status(err.status).send(err.asJson());
+    } else {
+        // TODO : Find a way to store the error (Logstash?)
+        if (err instanceof Error) {
+            console.error(err.stack)
+        } else {
+            console.log(err)
+        }
+        res.status(500).send('Internal Server Error');
+    }
+}
