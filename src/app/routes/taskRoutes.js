@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const controller = require('../controllers/blogPostController');
-const authorize = require('../middlewares/authorize')
+const controller = require('../controllers/taskController');
 
 router.get('/:id', controller.findOneById);
 router.post('/', controller.create);
