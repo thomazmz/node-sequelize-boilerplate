@@ -9,8 +9,8 @@ class App {
     constructor() {
         this.sequelize = models.sequelize;
         this.express = express();
-        this.express.use(errorHandlerMiddleware);
         this.express.use(bodyParser.json());
+        this.express.use(errorHandlerMiddleware);
         this.express.use('/', routes);
     }
 
@@ -25,12 +25,16 @@ function errorHandlerMiddleware(err, req, res, next) {
     if (err instanceof RequestError)  {
         res.status(err.status).send(err.asJson());
     } else {
-        // TODO : Find a way to store the error (Logstash?)
-        if (err instanceof Error) {
-            console.error(err.stack)
-        } else {
-            console.log(err)
-        }
+        if (err instanceof Error) console.error(err.stack);
+        else console.log(err);
         res.status(500).send('Internal Server Error');
     }
 }
+
+// function authenticationHandlerMiddlewre(err, req, res, next) {
+
+//     // Check if there is a token 
+
+//     // If there is a token, auehn
+//     next();
+// }

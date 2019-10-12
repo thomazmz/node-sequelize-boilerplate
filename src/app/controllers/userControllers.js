@@ -1,27 +1,27 @@
-const ApplicationError = require("../errors/ApplicationError");
+const RequestError = require("../errors/RequestError");
 const { User } = require("../models");
 
 module.exports = {
 
-  findOneById: (request, response) => {
-    User.findOne({ where: { id : request.params.id }})
-    .then(user => user ? response.status(200).send(user) : new ApplicationError({ status: 204 }).throw())
-    .catch(error => ApplicationError.send(response, error));
+  findOneById: (req, res) => {
+    User.findOne({ where: { id : req.params.id }})
+    .then(user => user ? res.status(200).send(user) : new RequestError(404).throw())
+    .catch(next());
   },
 
-  signIn: (request, response) => {
-    User.verifyCredentials(request.body.email, request.body.password)
-    .then(user => user ? response.status(200).send({ token : user.getBarearToken() }) : new ApplicationError({ status: 400 }).throw())
-    .catch(error => ApplicationError.send(response, error));
+  signIn: (req, res) => {
+    User.verifyCredentials(req.body.identifier, req.body.password)
+    .then(user => user ? res.status(200).send({ token : user.getBarearToken() }) : new RequestError(400).throw())
+    .catch(next());
   },
 
-  signUp: (request, response) => {
-    User.findOneByEmail(request.body.email)
-    .then(result => !result ? User.build(request.body) : new ApplicationError({ status: 422 }).throw())
+  signUp: (req, res) => {
+    User.findOneByEmail(req.body.email)
+    .then(result => !result ? User.build(req.body) : new RequestError(422).throw())
     .then(user => user.hashPassword())
     .then(user => user.save())
     .then(user => user.getBarearToken())
-    .then(token => response.status(200).send({ token }))
-    .catch(error => ApplicationError.send(response, error));
+    .then(token => res.status(200).send({ token }))
+    .catch(next());
   }
 }

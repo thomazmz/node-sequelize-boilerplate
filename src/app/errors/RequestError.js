@@ -10,8 +10,6 @@ class RequestError extends Error {
     
     asJson() {
         return {
-            requestMethod : this.requestMethod,
-            requestUrl: this.requestUrl,
             status : this.status,
             message : this.message,
             errors : this.errors
