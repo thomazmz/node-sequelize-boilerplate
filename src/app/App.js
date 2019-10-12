@@ -19,8 +19,6 @@ class App {
     }
 }
 
-module.exports = new App();
-
 function errorHandlerMiddleware(err, req, res, next) {
     if (err instanceof RequestError)  {
         res.status(err.status).send(err.asJson());
@@ -34,10 +32,4 @@ function errorHandlerMiddleware(err, req, res, next) {
     }
 }
 
-// function authenticationHandlerMiddlewre(err, req, res, next) {
-
-//     // Check if there is a token 
-
-//     // If there is a token, auehn
-//     next();
-// }
+module.exports = new App();
