@@ -10,8 +10,8 @@ class App {
         this.sequelize = models.sequelize;
         this.express = express();
         this.express.use(bodyParser.json());
-        this.express.use(errorHandlerMiddleware);
         this.express.use('/', routes);
+        this.express.use(errorHandlerMiddleware);
     }
 
     listen(port) {
@@ -25,8 +25,11 @@ function errorHandlerMiddleware(err, req, res, next) {
     if (err instanceof RequestError)  {
         res.status(err.status).send(err.asJson());
     } else {
-        if (err instanceof Error) console.error(err.stack);
-        else console.log(err);
+        if (err instanceof Error) { 
+            console.error(err.stack); 
+        } else {
+            console.log(err);
+        }
         res.status(500).send('Internal Server Error');
     }
 }

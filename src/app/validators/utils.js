@@ -9,7 +9,11 @@ module.exports = {
             return { message: msg, parameter: param, location: location }
         });
 
-        !result.isEmpty() ?  new RequestError(422, { errors: result.array() }).throw() : next();
+        if (!result.isEmpty()) {
+            new RequestError(422, { errors: result.array({ onlyFirstError: true }) }).throw();
+        } else {
+            next()
+        }
         
     }
 }

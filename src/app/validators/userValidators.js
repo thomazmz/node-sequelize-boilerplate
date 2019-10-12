@@ -7,6 +7,8 @@ module.exports = {
         check('email')
             .not().isEmpty().withMessage('You must specify a email.')
             .isEmail().withMessage('Invalid email address.'),
+        check('username')
+            .not().isEmpty().withMessage('You must specify a username.'),
         check('password')
             .not().isEmpty().withMessage('You must specify a password.')
             .isLength({ min: 5 }).withMessage('Password must be at least 5 characters in length.'),

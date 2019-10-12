@@ -5,7 +5,7 @@ const Op = require('sequelize').Op;
 module.exports = (sequelize, Sequelize) => {
 
 	const User = sequelize.define('User', {
-		userName: Sequelize.STRING,
+		username: Sequelize.STRING,
 		email: Sequelize.STRING,
 		password: Sequelize.VIRTUAL,
 		passwordHash: Sequelize.STRING
@@ -29,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
 
 	User.findOneByStringIdentifier = function(stringIdentifier) {
 		return User.findOne({
-			where: { [Op.or] : { userName: stringIdentifier, email: stringIdentifier } }
+			where: { [Op.or] : { username: stringIdentifier, email: stringIdentifier } }
 		});
 	}
 
