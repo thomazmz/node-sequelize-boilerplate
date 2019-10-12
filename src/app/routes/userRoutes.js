@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controller = require("../controllers/userControllers");
+const controller = require("../controllers/userController");
 const validators = require("../validators/userValidators");
 
 router.get('/:id', controller.findOneById);
