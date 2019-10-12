@@ -5,7 +5,7 @@ module.exports = {
 
     signUp : [
         check('email')
-            .not().isEmpty().withMessage('EYou must specify a email.')
+            .not().isEmpty().withMessage('You must specify a email.')
             .isEmail().withMessage('Invalid email address.'),
         check('password')
             .not().isEmpty().withMessage('You must specify a password.')
