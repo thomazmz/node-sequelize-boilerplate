@@ -45,11 +45,8 @@ module.exports = (sequelize, Sequelize) => {
 		return new Promise((resolve, reject) => {
 			jwt.verify(token, 'secret', (err, decodedToken) => {
 				if(err) {
-					console.log(err)
-					console.log('verify1')
 					reject(err);
 				} else {
-					console.log('verify2')
 					User.findOneById(decodedToken.userId)
 					.then(user => user ? resolve(user) : resolve(null))
 				}

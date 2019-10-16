@@ -1,5 +1,5 @@
-const router = require("express").Router();
-const RequestError = require("../errors/RequestError");
+const router = require('express').Router();
+const RequestError = require('../errors/RequestError');
 
 router.use('/private', require('./privateRoutes'));
 router.use('/user', require('./userRoutes'));

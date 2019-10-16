@@ -1,6 +1,5 @@
-const jwtDecode = require('jwt-decode');
-
 const { User } = require('../../src/app/models');
+const jwtDecode = require('jwt-decode');
 const utils = require('../utils');
 
 describe('User model tests', () => {

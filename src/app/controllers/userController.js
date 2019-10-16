@@ -1,5 +1,5 @@
-const RequestError = require("../errors/RequestError");
-const { User } = require("../models");
+const RequestError = require('../errors/RequestError');
+const { User } = require('../models');
 
 module.exports = {
 
