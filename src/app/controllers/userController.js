@@ -11,7 +11,7 @@ module.exports = {
 
   	signIn: (req, res, next) => {
     	User.verifyCredentials(req.body.identifier, req.body.password)
-		.then(user => user ? res.status(200).send({ token : user.getBarearToken() }) : new RequestError(400).throw())
+		.then(user => user ? res.status(200).send({ token : user.getBarearToken() }) : new RequestError(401).throw())
 		.catch(err => next(err));
   	},
 

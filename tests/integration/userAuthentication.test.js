@@ -14,6 +14,7 @@ describe('User authentication tests', () => {
 		const user = await utils.createUser();
 		const response = await request(app).post('/user/signup').send({
 			email : user.email,
+			username : user.username,
 			password : '12345'
 		});
 		expect(response.status).toBe(422);
@@ -29,25 +30,25 @@ describe('User authentication tests', () => {
 	it('should return 401 when signing in with invalid email', async () => {
 		const user = await utils.createUser({ password: '12345'});
 		const response = await request(app).post('/user/signin').send({ 
-			email : `!${user.email}`, 
+			identifier : `!${user.email}`, 
 			password : '12345' 
 		});
-		expect(response.status).toBe(400);
+		expect(response.status).toBe(401);
 	});
 
 	it('should return 401 when signing in  with invalid password', async () => {
 		const user = await utils.createUser({ password: '12345'});
 		const response = await request(app).post('/user/signin').send({ 
-			email : user.email, 
+			identifier : user.email, 
 			password : '123456' 
 		});
-		expect(response.status).toBe(400);
+		expect(response.status).toBe(401);
 	});
 
 	it('should return 200 status and access token when signing in with valid credentials', async () => {
 		const user = await utils.createUser({ password: '12345'});
 		const response = await request(app).post('/user/signin').send({ 
-			email : user.email, 
+			identifier : user.email, 
 			password : '12345' 
 		});
 		expect(response.status).toBe(200);
