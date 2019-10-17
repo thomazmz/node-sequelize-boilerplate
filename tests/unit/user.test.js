@@ -65,6 +65,13 @@ describe('User model tests', () => {
         expect(fourthTry).toBe(null);
     });
 
+    it('should verify token', async () => {
+        const user = await utils.createUser();
+        const token = await user.getBarearToken();
+        const verifiedUser = await User.verifyToken(token);
+        expect(verifiedUser.id).toBe(user.id);
+    });
+
     it('should include proper data on JWT token', async () => {
         const user = await utils.createUser();
         const jwtToken = user.getBarearToken();
