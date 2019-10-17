@@ -8,8 +8,8 @@ module.exports = {
   getUniqueUserParams : () => {
     const identifier = uniqid();
     return {
-      name: `John Doe ${identifier}`,
-      email: `john.doe.${identifier}@email.com`,
+      username: `Mary Doe ${identifier}`,
+      email: `Mary.doe.${identifier}@email.com`,
       password: identifier
     }
   },
@@ -17,8 +17,8 @@ module.exports = {
   createUser : async (userData) => {
     const identifier = uniqid();
     const user = await User.build({
-      name: userData && userData.name ? userData.name : `John Doe ${identifier}`,
-      email: userData && userData.email ? userData.email : `john.doe.${identifier}@email.com`,
+      username: userData && userData.username ? userData.username : `Mary Doe ${identifier}`,
+      email: userData && userData.email ? userData.email : `mary.doe.${identifier}@email.com`,
       password: userData && userData.password ? userData.password : identifier
     });
     await user.hashPassword();
@@ -29,8 +29,8 @@ module.exports = {
   buildUser : (userData) => {
     const identifier = uniqid();
     return User.build({
-      name: userData && userData.name ? userData.name : `John Doe ${identifier}`,
-      email: userData && userData.email ? userData.email : `john.doe.${identifier}@email.com`,
+      username: userData && userData.username ? userData.username : `Mary Doe ${identifier}`,
+      email: userData && userData.email ? userData.email : `mary.doe.${identifier}@email.com`,
       password: userData && userData.password ? userData.password : identifier
     });
   },

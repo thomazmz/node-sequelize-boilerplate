@@ -69,7 +69,7 @@ describe('User model tests', () => {
         const user = await utils.createUser();
         const jwtToken = user.getBarearToken();
         const jwtTokenDecoded = jwtDecode(jwtToken);
-        expect(jwtTokenDecoded.email).toBe(user.email);
+        expect(jwtTokenDecoded.userId).toBe(user.id);
         expect(jwtTokenDecoded.iat).toBeDefined();
         expect(jwtTokenDecoded.iat).not.toBeNull();
     });
