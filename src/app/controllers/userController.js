@@ -7,8 +7,16 @@ module.exports = {
 		User.findOne({ where: { id : req.params.id }})
 		.then(user => user ? res.status(200).send(user) : new RequestError(404).throw())
 		.catch(err => next(err));
-  	},
+	},
 
+	findUserTasks: (req, res, next) => {
+        new RequestError(501).thorw();
+	},
+
+	findUserTask:  (req, res, next) => {
+        new RequestError(501).thorw();
+	},
+	  
   	signIn: (req, res, next) => {
     	User.verifyCredentials(req.body.identifier, req.body.password)
 		.then(user => user ? res.status(200).send({ token : user.getBarearToken() }) : new RequestError(401).throw())
