@@ -9,11 +9,11 @@ module.exports = {
 		.catch(err => next(err));
 	},
 
-	findUserTasks: (req, res, next) => {
+	findTasks: (req, res, next) => {
         new RequestError(501).thorw();
 	},
 
-	findUserTask:  (req, res, next) => {
+	findTask:  (req, res, next) => {
         new RequestError(501).thorw();
 	},
 	  
