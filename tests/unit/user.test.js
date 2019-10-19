@@ -27,6 +27,12 @@ describe('User model tests', () => {
         expect(user.email).toBe(findedUser.email);
     })
 
+    it('should find user by email', async () => {
+        const user = await utils.createUser();
+        const findedUser = await User.findOneByUsername(user.username);
+        expect(user.username).toBe(findedUser.username);
+    })
+
     it('should find user passing email as unique identifier', async () => {
         const user = await utils.createUser();
         const findedUser = await User.findOneByStringIdentifier(user.email);

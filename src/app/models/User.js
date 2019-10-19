@@ -27,6 +27,12 @@ module.exports = (sequelize, Sequelize) => {
 		});
 	}
 
+	User.findOneByUsername = function(username) {
+		return User.findOne({
+			where : { username }
+		})
+	}
+
 	User.findOneByStringIdentifier = function(stringIdentifier) {
 		return User.findOne({
 			where: { [Op.or] : { username: stringIdentifier, email: stringIdentifier } }
