@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const controller = require('../controllers/taskController');
-const { authenticate } = require('../handlers/authenticationHandler');
+const controller = require('../../app/controllers/taskController');
+const { authenticate } = require('../authentication/authenticationMiddleware');
 
 router.get('/:id', authenticate, controller.findOneById);
 router.get('/', authenticate, controller.findAll);

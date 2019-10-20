@@ -1,6 +1,5 @@
-
-const { Task } = require('../models');
-const RequestError = require('../errors/RequestError');
+const { Task } = require('../../domain/models');
+const RequestError = require('../utils/error/RequestError');
 
 module.exports = {
 

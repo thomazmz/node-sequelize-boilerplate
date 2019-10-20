@@ -1,4 +1,4 @@
-const RequestError = require('../errors/RequestError');
+const RequestError = require('./RequestError');
 
 module.exports = (err, req, res, next) => {
     if (err instanceof RequestError)  {

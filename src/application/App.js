@@ -1,18 +1,22 @@
 const express = require('express');
+
 const bodyParser = require('body-parser');
-const models = require('./models');
-const routes = require('./routes');
-const errorHandler = require('./handlers/errorHandler');
-const redis = require('../infrastructure/redis');
+const errorHandler = require('./utils/error/errorMiddleware');
 
 class App {
     constructor() {
-        this.redisClient = redis; 
-        this.sequelize = models.sequelize;
         this.express = express();
+        this.loadMiddlewares();
+        this.loadRoutes();
+    }
+
+    loadMiddlewares() {
         this.express.use(bodyParser.json());
-        this.express.use('/', routes);
         this.express.use(errorHandler);
+    }
+
+    loadRoutes() {
+        this.express.use('/authentication', require('./authenticationRoutes'));
     }
 
     listen(port) {
