@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Op = require('sequelize').Op;
 
 module.exports = (sequelize, Sequelize) => {
 

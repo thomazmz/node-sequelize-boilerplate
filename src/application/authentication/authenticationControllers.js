@@ -63,7 +63,7 @@ module.exports = {
 				.then(user => user.getBarearToken())
 				.then(token => res.status(200).send({ token }))
 				.then(() => cache.delete(`UserSignUp:${validationPayload.key}`))
-				.catch(err => next(err));
+
 			})
 			
 		}).catch(err => next(err));
