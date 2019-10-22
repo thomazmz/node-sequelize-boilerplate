@@ -1,22 +1,14 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
-const errorHandler = require('./utils/error/errorMiddleware');
+const errorMiddleware = require('./error/errorMiddlewares');
 
 class App {
     constructor() {
         this.express = express();
-        this.loadMiddlewares();
-        this.loadRoutes();
-    }
-
-    loadMiddlewares() {
         this.express.use(bodyParser.json());
-        this.express.use(errorHandler);
-    }
-
-    loadRoutes() {
-        this.express.use('/authentication', require('./authenticationRoutes'));
+        this.express.use('/authentication', require('./authentication/authenticationRoutes'));
+        this.express.use(errorMiddleware);
     }
 
     listen(port) {

@@ -1,6 +1,7 @@
 
+const { User } = require('../../domain');
 const { check } = require('express-validator');
-const { validateResult } = require('./utils');
+const { validateResult } = require('../validators');
 
 module.exports = {
 

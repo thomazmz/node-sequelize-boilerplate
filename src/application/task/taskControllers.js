@@ -29,5 +29,4 @@ module.exports = {
     delete: (req, res) => {
         new RequestError(501).thorw();
     }
-
 }

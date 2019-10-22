@@ -1,4 +1,3 @@
-const { User } = require('.');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -9,18 +8,18 @@ module.exports = (sequelize, Sequelize) => {
 		email: Sequelize.STRING,
 		password: Sequelize.VIRTUAL,
 		passwordHash: Sequelize.STRING
-    });
-    
+	});
+
 	User.associate = function(models) {
 		User.hasMany(models.Task, {as: 'tasks'});
-    };
-    
+	};
+
 	User.findOneById = function(id) {
 		return User.findOne({
 			where: { id }
 		});
 	}
-	
+
 	User.findOneByEmail = function(email) {
 		return User.findOne({ 
 			where: { email } 
