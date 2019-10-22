@@ -28,37 +28,44 @@ module.exports = {
 
 			Promise.all([
 				cache.setex(`UserSignUp:${key}`, token, 3600),
-				console.log("Your verification code is: " + base64.encodeJson({ key, secret }))
-				// email.send(base64.encodeJson({ key, secret }))
+				email.send(base64.encodeJson({ key, secret }))
 			]).then(() => res.status(200).send());
 
 		}).catch(err => next(err));
 	},
 
 	validate: (req, res, next) => {
-        new RequestError(501).thorw();
+
+		const validationPayload = base64.decodeJson(req.params.payload);
+
+		cache.get(`UserSignUp:${validationPayload.key}`)
+		.then(validationToken => {
+
+			if(!validationToken) new RequestError(422, 'Expired token').throw();
+
+			return User.verifyToken(validationToken, validationPayload.secret)
+			.then(decodedToken => {
+
+				return User.findOneByEmail(decodedToken.email) 
+				.then(result => {
+
+					if(result) return new RequestError(422, 'Invalid token').throw();
+
+					const userParameters = { 
+						username : decodedToken.username, 
+						email : decodedToken.email, 
+						passwordHash : decodedToken.passwordHash 
+					}
+
+					return User.build(userParameters);
+				})
+				.then(user => user.save())
+				.then(user => user.getBarearToken())
+				.then(token => res.status(200).send({ token }))
+				.then(() => cache.delete(`UserSignUp:${validationPayload.key}`))
+				.catch(err => next(err));
+			})
+			
+		}).catch(err => next(err));
 	}
 }
-
-
-
-
-
-const validationPayload = base64.decodeJson(req.params.payload);
-console.log('validationPayload', validationPayload)
-// 	cache.get(`UserSignUp:${validationPayload.key}`)
-// 	.then(validationCache => {
-
-// 		if(!validationCache) return new RequestError(422, 'Expired token').throw();
-// 		User.verifyToken(validationCache.token, validationPayload.secret)
-// 		.then(decodedToken => decodedToken ? User.findOneByEmail(decodedToken.email) : new RequestError(422, 'Invalid token').throw())
-// 		.then(user => {
-// 			console.log(decodedToken)
-// 			if (user) return new RequestError(422, 'Invalid token').throw();
-// 			User.build(decodedToken.payload)
-// 			.then(user => user.save())
-// 			.then(user => user.getBarearToken())
-// 			.then(token => res.status(200).send({ token }))
-// 		})
-// 	})
-// 	.catch(err => next(err));
