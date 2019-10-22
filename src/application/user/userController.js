@@ -1,23 +1,14 @@
-class UserController {
-    
-    loadRoutes() {
-        this.express.use(routes);
-    }
+const RequestError = require('../errors/RequestError');
+const { User } = require('../models');
 
-    loadMiddlewares() {
-        this.express.use(bodyParser.json());
-        this.express.use(errorHandler);
-    }
+module.exports = {
 
-    loadInfrastructure() {
-        this.sequelize = models.sequelize;
-        this.mailer = mailer;
-        this.redis = redis; 
-    }
+    findOneById: (req, res, next) => {
+      User.findOne({ where: { id : req.params.id }})
+      .then(user => user ? res.status(200).send(user) : new RequestError(404).throw())
+      .catch(err => next(err));
+  }
 
-    listen(port) {
-        this.express.listen(port, () => console.log(`Successfully listening on ${port}`));
-    }
 }
 
 module.exports = new App();

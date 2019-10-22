@@ -16,6 +16,7 @@ module.exports = {
             } else {
                 const token = req.headers.authorization.split(' ')[1];
                 User.verifyToken(token)
+                .then(decodedToken => decodedToken ? User.findUserById(decodedToken.id) : new RequestError(401).throw())
                 .then(user => user ? embedUserAndProceed(user, req, next) : new RequestError(401).throw())
                 .catch(err => next(new RequestError(401)));
             }

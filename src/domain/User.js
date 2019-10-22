@@ -46,14 +46,18 @@ module.exports = (sequelize, Sequelize) => {
 		});	
 	}
 
-	User.verifyToken = function(token) {
+	User.prototype.getBarearToken = function(secret = 'secret', payload) {
+		payload = payload || { id : this.id };
+		return jwt.sign(payload, secret);
+	}
+
+	User.verifyToken = function(token, secret = 'secret') {
 		return new Promise((resolve, reject) => {
-			jwt.verify(token, 'secret', (err, decodedToken) => {
+			jwt.verify(token, secret, (err, decodedToken) => {
 				if(err) {
 					reject(err);
 				} else {
-					User.findOneById(decodedToken.userId)
-					.then(user => user ? resolve(user) : resolve(null))
+					resolve(decodedToken);
 				}
 			});
 		});
@@ -79,10 +83,6 @@ module.exports = (sequelize, Sequelize) => {
 				resolve(this);
 			}
 		});
-	}
-
-	User.prototype.getBarearToken = function() {
-		return jwt.sign({ userId : this.id }, "secret");
 	}
 
 	return User;
