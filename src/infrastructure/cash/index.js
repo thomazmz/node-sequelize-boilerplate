@@ -25,10 +25,19 @@ module.exports = {
     
     get: (key) => {
         return new Promise((resolve, reject) => {
-            client.get(key, (err, value) => { 
+            client.get(key, (err, value) => {
                 if (err) reject();
                 resolve(JSON.parse(value));
             })
         });
+    },
+
+    delete: (key) => {
+        return new Promise((resolve, reject) => {
+            client.del(key, (err, value) => {
+                if (err) reject();
+                resolve();
+            })
+        })
     }
 };

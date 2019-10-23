@@ -41,7 +41,7 @@ module.exports = {
 		cache.get(`UserSignUp:${validationPayload.key}`)
 		.then(validationToken => {
 
-			if(!validationToken) new RequestError(422, 'Expired token').throw();
+			if(!validationToken) return new RequestError(422, { message : 'Invalid token' }).throw();
 
 			return User.verifyToken(validationToken, validationPayload.secret)
 			.then(decodedToken => {
@@ -49,7 +49,7 @@ module.exports = {
 				return User.findOneByEmail(decodedToken.email) 
 				.then(result => {
 
-					if(result) return new RequestError(422, 'Invalid token').throw();
+					if(result) return new RequestError(422, { message : 'Invalid token' }).throw();
 
 					const userParameters = { 
 						username : decodedToken.username, 
