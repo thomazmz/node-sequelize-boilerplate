@@ -7,7 +7,10 @@ module.exports = (sequelize, Sequelize) => {
 	});
 
     Task.associate = function(models) {
-        Task.belongsTo(models.User, {foreignKey: 'authorId', as: 'author'})
+        Task.belongsTo(models.User, {
+            foreignKey: 'authorId', 
+            as: 'author'
+        })
     };
     
 	return Task;

@@ -11,6 +11,10 @@ module.exports = (sequelize, Sequelize) => {
 		passwordHash: Sequelize.STRING
 	});
 
+    Task.associate = function(models) {
+        Task.belongsTo(models.Role, {foreignKey: 'roleId', as: 'role'})
+    };
+
 	User.associate = function(models) {
 		User.hasMany(models.Task, {as: 'tasks'});
 	};
