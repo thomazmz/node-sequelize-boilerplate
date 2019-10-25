@@ -1,5 +1,3 @@
-
-const { User } = require('../../domain');
 const { check } = require('express-validator');
 const { validateResult } = require('../validators');
 
