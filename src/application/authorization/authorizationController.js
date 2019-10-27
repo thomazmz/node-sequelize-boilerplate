@@ -1,5 +1,5 @@
 const RequestError = require('../error/RequestError');
-const { Role, Permision } = require('../../domain');
+const { sequelize, Role, Permision } = require('../../domain');
 
 module.exports = {
 
@@ -22,13 +22,22 @@ module.exports = {
 	},
 
 	createRole: async (req, res, next) => {
-		const permisions = await Permision.findByNames(req.body.permisions);
-		if(permisions.length !== req.body.permisions.length) next(new RequestError(422, { message : 'Invalid permisions' }));
 		
-		// TODO : Make this operation atomic
-		return Role.create({ name : req.body.name })
-		.then(role => role.setPermisions(permisions))
-		.then(role => res.status(200).send(role))
+		const permisions = await Permision.findByNames(req.body.permisions);
+		if(permisions.length !== req.body.permisions.length) {
+			return next(new RequestError(422, { message : 'Invalid permisions' }));
+		}
+
+		const role = await Role.findOne({ where: { name : req.body.name } })
+		if(role) {
+			return next(new RequestError(422, { message : 'Role already exists' }));
+		}
+		
+		return sequelize.transaction(t => {
+			return Role.create({ name : req.body.name })
+			.then(role => role.setPermisions(permisions))
+		})
+		.then(role => res.status(201).send(role))
 		.catch(err => next(err));
 	}
 
