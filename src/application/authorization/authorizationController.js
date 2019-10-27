@@ -35,7 +35,10 @@ module.exports = {
 		
 		return sequelize.transaction(t => {
 			return Role.create({ name : req.body.name })
-			.then(role => role.setPermisions(permisions))
+			.then(async role => {
+				await role.setPermisions(permisions);
+				return role
+			})
 		})
 		.then(role => res.status(201).send(role))
 		.catch(err => next(err));
