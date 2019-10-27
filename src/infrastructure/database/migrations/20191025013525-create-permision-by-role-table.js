@@ -7,6 +7,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: { model: 'Role', key: 'id' },
+				onDelete: 'CASCADE',
 				primaryKey: true
 			},
 			permision_id: {
@@ -24,10 +25,14 @@ module.exports = {
 				type: Sequelize.DATE,
 				allowNull: false
 			}
+		}).then(() => {
+			return queryInterface.addConstraint('PermisionByRole', ['role_id', 'permision_id'], {
+				type: 'unique'
+			})
 		})
 	},
 
 	down: (queryInterface, Sequelize) => {
 		return queryInterface.dropTable('PermisionByRole');
 	}
-}; 
+};
