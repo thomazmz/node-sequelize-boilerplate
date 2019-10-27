@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
 			through : 'PermisionByRole',
 			foreignKey : 'roleId'
 		});
-	};
+	}
 
 	return Role;
 

@@ -1,3 +1,5 @@
+const Op = require('sequelize').Op;
+
 module.exports = (sequelize, Sequelize) => {
 
 	const Permision = sequelize.define('Permision', {
@@ -10,8 +12,14 @@ module.exports = (sequelize, Sequelize) => {
 			through : 'PermisionByRole',
 			foreignKey : 'permisionId'
 		});
-	};
+	}
 
-	return Role;
+	Permision.findByNames = function(names) {
+		return Permision.findAll({
+			where: { name: { [Op.or]: names } }
+		  });
+	}
+
+	return Permision
 
 }
