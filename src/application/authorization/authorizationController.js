@@ -21,6 +21,16 @@ module.exports = {
 		.catch(err => next(err));
 	},
 
+	findOneById: (req, res, next) => {
+		Role.findOne({ 
+			where: { id: req.params.id },
+			include: { model: Permision, as: 'permisions', attributes: ["id", "name"], through: { attributes: [] }},
+			attributes: ["id", "name"]
+		})
+		.then(role => role ? res.status(200).send(role) : new RequestError(404).throw())
+		.catch(err => next(err));
+	},
+
 	createRole: async (req, res, next) => {
 
 		const permisions = await Permision.findByNames(req.body.permisions);
@@ -28,7 +38,7 @@ module.exports = {
 			return next(new RequestError(422, { message: 'Invalid permisions' }));
 		}
 
-		const role = await Role.findOne({ where: { name : req.body.name } })
+		const role = await Role.findOne({ where: { name: req.body.name } })
 		if(role) {
 			return next(new RequestError(422, { message: 'Role already exists' }));
 		}
