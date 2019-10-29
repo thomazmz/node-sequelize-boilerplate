@@ -33,13 +33,12 @@ module.exports = {
 			return next(new RequestError(422, { message: 'Role already exists' }));
 		}
 
-		return sequelize.transaction(async t => {
-			const newRole = await Role.create({ name: req.body.name });
-			await newRole.setPermisions(permisions);
-			return newRole;
+		return sequelize.transaction(async transaction => {
+				const newRole = await Role.create({ name: req.body.name })
+				await newRole.setPermisions(permisions);
+				return newRole;
 		})
 		.then(newRole => res.status(201).send(newRole))
 		.catch(err => next(err));
 	}
-
 }
