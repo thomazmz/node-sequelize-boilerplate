@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path'); 
+const cls = require('cls-hooked');
 const config = require('../infrastructure/database/config');
 const Sequelize = require('sequelize');
+
+Sequelize.useCLS(cls.createNamespace('applicationNamespace'));
 
 const models = {
     Sequelize : Sequelize,
