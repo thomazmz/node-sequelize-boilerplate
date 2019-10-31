@@ -10,6 +10,10 @@ class UserService {
 		});
 	}
 
+	build = (userParams) => {
+		return userRepository.build(userParams);
+	}
+
 }
 
 module.exports = new UserService();

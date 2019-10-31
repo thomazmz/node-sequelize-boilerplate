@@ -5,6 +5,7 @@ const Op = require('sequelize').Op;
 class UserRepository extends EntityRepository {
 
 	constructor() {
+		console.log('teste', typeof User)
 		super(User);
 	}
 
