@@ -1,5 +1,7 @@
 const app = require('./application/Application')
 
-app.listen(3030, () => {
-    app.authenticate();
-});
+app.listen(3030);
+
+// app.listen(3030, () => {
+//     app.authenticate();
+// });
