@@ -9,9 +9,9 @@ class Role extends Sequelize.Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.Permision, {
-			as: 'permisions',
-			through : 'PermisionByRole',
+		this.belongsToMany(models.Authorization, {
+			as: 'authorizations',
+			through : 'AuthorizationsByRole',
 			foreignKey : 'roleId'
 		});
 	}
