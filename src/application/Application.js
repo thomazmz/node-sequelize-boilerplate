@@ -1,14 +1,13 @@
 const express = require('express');
-
 const bodyParser = require('body-parser');
 const errorMiddleware = require('./error/errorMiddlewares');
+const models = require('../infrastructure/database');
 
 class App {
     constructor() {
         this.express = express();
         this.express.use(bodyParser.json());
-        this.express.use('/authentication', require('./authentication/authenticationRoutes'));
-        this.express.use('/authorization', require('./authorization/authorizationRoutes'));
+        this.express.use('/users', require('./user/userRoutes'));
         this.express.use(errorMiddleware);
     }
 
