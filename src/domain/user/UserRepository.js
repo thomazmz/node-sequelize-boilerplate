@@ -1,4 +1,5 @@
-const User = require('../../infrastructure/database/schemas')
+const { User } = require('../../infrastructure/database');
+const Op = require('sequelize').Op;
 
 class UserRepository {
 
