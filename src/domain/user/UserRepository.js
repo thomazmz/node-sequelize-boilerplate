@@ -1,7 +1,12 @@
 const { User } = require('../../infrastructure/database');
+const EntityRepository = require('../entity/EntityRepository');
 const Op = require('sequelize').Op;
 
-class UserRepository {
+class UserRepository extends EntityRepository {
+
+	constructor() {
+		super(User);
+	}
 
 	findOrderedBy(column="email", offset, limit=2) {
 		return User.findAndCountAll({
