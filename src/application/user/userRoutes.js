@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const controller = require('../controllers/userController');
-const validators = require('../validators/userValidators');
+const controller = require('./UserController');
 
-router.get('/:id', validators.findById, controller.findOneById);
+router.get('/', controller.list);
+router.get('/:id', controller.findOneById);
 
 module.exports = router;

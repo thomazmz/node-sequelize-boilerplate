@@ -3,25 +3,33 @@ const Op = require('sequelize').Op;
 
 class UserRepository {
 
-	findOneById = (id) => {
+	findOrderedBy(column="email", offset, limit=2) {
+		return User.findAndCountAll({
+			order: [[column, 'ASC']],
+			limit: limit,
+			offset: offset
+		 })
+	}
+
+	findOneById(id) {
 		return User.findOne({
 			where: { id }
 		});
 	}
 
-	findOneByEmail = (email) => {
+	findOneByEmail(email) {
 		return User.findOne({ 
 			where: { email } 
 		});
 	}
 
-	findOneByUsername = (username) => {
+	findOneByUsername(username) {
 		return User.findOne({
 			where : { username }
 		})
 	}
 
-	findOneByStringIdentifier = (stringIdentifier) => {
+	findOneByStringIdentifier(stringIdentifier) {
 		return User.findOne({
 			where: { [Op.or] : { username: stringIdentifier, email: stringIdentifier } }
 		});
@@ -29,4 +37,4 @@ class UserRepository {
 
 }
 
-return new UserRepository();
+module.exports = new UserRepository();
