@@ -1,7 +1,5 @@
-const app = require('./application/Application')
+const app = require('./application/App');
 
-app.listen(3030);
-
-// app.listen(3030, () => {
-//     app.authenticate();
-// });
+app.listen(3030, () => {
+	app.checkDatabaseConnection();
+});
