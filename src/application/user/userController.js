@@ -1,5 +1,5 @@
+const userService = require('../../domain/user/UserRepository');
 const userRepository = require('../../domain/user/UserRepository');
-const userService = require('../../domain/user/UserService');
 
 module.exports = {
 
@@ -22,10 +22,15 @@ module.exports = {
 			passwordHash: req.body.passwordHash,
 			roleId: req.body.roleId
 		}
-		const user =  userService.build(userParams)
+		const user = userRepository.build(userParams);
 		res.status(200).send(user);
 		// .then(user => user ? res.status(200).send(user) : new RequestError(404).throw())
 		// .catch(err => next(err));
+	},
+
+	testController(param) {
+		const result = userService.testService("param");
+		res.status(200).send(result);
 	}
 
 }
