@@ -10,9 +10,6 @@ class UserService {
 		});
 	}
 
-	testService(param) {
-		return userRepository.testRepository(param);
-	}
 }
 
 module.exports = new UserService();

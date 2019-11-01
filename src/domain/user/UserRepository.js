@@ -40,10 +40,6 @@ class UserRepository extends EntityRepository {
 		});
 	}
 
-	testRepository(param) {
-		return param+"*";
-	}
-
 }
 
-const repository = new UserRepository();
+module.exports = new UserRepository();

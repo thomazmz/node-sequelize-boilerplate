@@ -1,4 +1,3 @@
-const userService = require('../../domain/user/UserRepository');
 const userRepository = require('../../domain/user/UserRepository');
 
 module.exports = {
@@ -26,11 +25,6 @@ module.exports = {
 		res.status(200).send(user);
 		// .then(user => user ? res.status(200).send(user) : new RequestError(404).throw())
 		// .catch(err => next(err));
-	},
-
-	testController(param) {
-		const result = userService.testService("param");
-		res.status(200).send(result);
 	}
 
 }

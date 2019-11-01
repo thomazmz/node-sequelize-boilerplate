@@ -1,4 +1,4 @@
 const router = require('express').Router();
-const controller = require('./userController');
+const userController = require('./userController');
 
 module.exports = router;
