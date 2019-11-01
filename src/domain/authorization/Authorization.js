@@ -5,7 +5,8 @@ class Authorization extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		return super.init({
 			name: DataTypes.STRING
-		}, { sequelize });
+		}, 
+		{ sequelize });
 	}
 
 	static associate(models) {
@@ -15,7 +16,6 @@ class Authorization extends Sequelize.Model {
 			foreignKey : 'roleId'
 		});
 	}
-
 }
 
 module.exports = Authorization;

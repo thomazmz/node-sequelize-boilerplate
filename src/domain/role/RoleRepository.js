@@ -1,14 +1,12 @@
 const { Role } = require('../../infrastructure/database');
-const Op = require('sequelize').Op;
+const EntityRepository = require('../entity/EntityRepository');
 
-class RoleRepository {
+class RoleRepository extends EntityRepository {
 
-	findByName = function(name) {
-		return Role.findOne({ 
-            where: { name } 
-        });
+	constructor() {
+		super(Role);
 	}
 
 }
 
-return new RoleRepository();
+module.exports = new RoleRepository();

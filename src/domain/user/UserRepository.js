@@ -1,11 +1,10 @@
-const { User } = require('../../infrastructure/database');
 const EntityRepository = require('../entity/EntityRepository');
+const { User } = require('../../infrastructure/database');
 const Op = require('sequelize').Op;
 
 class UserRepository extends EntityRepository {
 
 	constructor() {
-		console.log('teste', typeof User)
 		super(User);
 	}
 
@@ -32,7 +31,7 @@ class UserRepository extends EntityRepository {
 	findOneByUsername(username) {
 		return User.findOne({
 			where : { username }
-		})
+		});
 	}
 
 	findOneByStringIdentifier(stringIdentifier) {
@@ -41,6 +40,10 @@ class UserRepository extends EntityRepository {
 		});
 	}
 
+	testRepository(param) {
+		return param+"*";
+	}
+
 }
 
-module.exports = new UserRepository();
+const repository = new UserRepository();

@@ -4,11 +4,12 @@ class User extends Sequelize.Model {
 
 	static init(sequelize, DataTypes) {
 		return super.init({	
-			username: Sequelize.STRING,
-			email: Sequelize.STRING,
-			password: Sequelize.VIRTUAL,
-			passwordHash: Sequelize.STRING
-		}, { sequelize });
+			username: DataTypes.STRING,
+			email: DataTypes.STRING,
+			password: DataTypes.VIRTUAL,
+			passwordHash: DataTypes.STRING
+		}, 
+		{ sequelize });
 	}
 
 	static associate(models) {

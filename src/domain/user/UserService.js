@@ -1,8 +1,8 @@
-const userRepository = require('./UserRepository')
+const userRepository = require('./UserRepository');
 
 class UserService {
 
-	verifyCredentials = (stringIdentifier, plainPassword) => {
+	verifyCredentials(stringIdentifier, plainPassword) {
 		return new Promise((resolve) => {
 			userRepository.findOneByStringIdentifier(stringIdentifier)
 			.then(user => !user ? resolve(null) : user.verifyPassword(plainPassword))
@@ -10,10 +10,9 @@ class UserService {
 		});
 	}
 
-	build = (userParams) => {
-		return userRepository.build(userParams);
+	testService(param) {
+		return userRepository.testRepository(param);
 	}
-
 }
 
 module.exports = new UserService();
