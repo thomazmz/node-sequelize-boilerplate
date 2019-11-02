@@ -9,11 +9,7 @@ class UserRepository extends EntityRepository {
 	}
 
 	findOrderedBy(column="email", offset, limit=2) {
-		return User.findAndCountAll({
-			order: [[column, 'ASC']],
-			limit: limit,
-			offset: offset
-		 })
+		super.findOrderedBy(column, offset, limit);
 	}
 
 	findOneById(id) {
