@@ -9,8 +9,7 @@ module.exports = {
 			const role = results[0];
 			return queryInterface.bulkInsert('User', [{
 				username: "admin",
-				email: "admin@zandonotto.com",
-				password_hash: "temporary",
+				email: "thomaz.zandonotto@gmail.com",
 				role_id: role.id,
 				created_at:  new Date(),
 				updated_at:  new Date()
@@ -18,7 +17,7 @@ module.exports = {
 		})
 	},
 
-  down: (queryInterface, Sequelize) => {
-	return queryInterface.bulkDelete('User', null, {});
-  }
+	down: (queryInterface, Sequelize) => {
+		return queryInterface.bulkDelete('User', null, {});
+	}
 };
