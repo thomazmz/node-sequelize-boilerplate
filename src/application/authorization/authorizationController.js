@@ -1,23 +1,22 @@
 module.exports = {
 
-	getUserAuthority(req, res, next) {
+	findUserAuthority: (req, res, next) => {
 		res.status(501).send();
 	},
 
-	listRoles(req, res, next) {
+	listRoles: (req, res, next) => {
 		res.status(501).send();
 	},
 
-	getRoleById(req, res, next) {
+	getRoleById: (req, res, next) => {
 		res.status(501).send();
 	},
 
-	createRole(req, res, next) {
+	createRole: (req, res, next) => {
 		res.status(501).send();
 	},
 
-	updateRole(req, res, next) {
+	updateRole: (req, res, next) => {
 		res.status(501).send();
 	}
-
 }

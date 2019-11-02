@@ -1,8 +1,13 @@
 const router = require('express').Router();
-const authenticationController = require('./authenticationController');
+const controller = require('./authenticationController');
 
-router.post('/signup', authenticationController.signUp);
-router.post('/signin', authenticationController.signIn);
-router.post('/signup/:payload', authenticationController.validate);
+router.post('/signup', 
+	controller.signUp);
+
+router.post('/signin', 
+	controller.signIn);
+
+router.post('/signup/:payload', 
+	controller.validate);
 
 module.exports = router;

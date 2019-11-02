@@ -1,4 +1,5 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
+const Authorizations = require('./Authorizations');
 
 class Authorization extends Sequelize.Model {
 
@@ -15,6 +16,10 @@ class Authorization extends Sequelize.Model {
 			through : 'AuthorizationByRole',
 			foreignKey : 'roleId'
 		});
+	}
+
+	static get to() { 
+		return Authorizations;
 	}
 }
 

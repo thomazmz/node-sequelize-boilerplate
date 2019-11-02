@@ -22,12 +22,12 @@ class User extends Sequelize.Model {
 		}); 
 	}
 	
-	getBarearToken(secret = 'secret', payload) {
+	getBarearToken(secret='secret', payload) {
 		payload = payload || { id : this.id };
 		return jwt.sign(payload, secret);
 	}
 
-	verifyToken(token, secret = 'secret') {
+	verifyToken(token, secret='secret') {
 		return new Promise((resolve, reject) => {
 			jwt.verify(token, secret, (err, decodedToken) => {
 				if(err) {
@@ -39,9 +39,10 @@ class User extends Sequelize.Model {
 		});
 	}
 
-	verifyPassword(plainPassword) {
+	verifyPassword(passwordLiteral) {
 		return new Promise((resolve) => {
-			bcrypt.compare(plainPassword, this.passwordHash)
+			// Fixme : Password must not be null.
+			bcrypt.compare(passwordLiteral, this.passwordHash)
 			.then(result => !result ? resolve(null) : resolve(this));
 		});
 	}
@@ -56,12 +57,11 @@ class User extends Sequelize.Model {
 					resolve(this);
 				});
 			} else {
-				// Fixme : This might not be correct
+				// Fixme : This might not be correct.
 				resolve(this);
 			}
 		});
 	}
-
 }
 
 module.exports = User;
