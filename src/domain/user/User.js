@@ -1,4 +1,7 @@
 const Sequelize = require("sequelize");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 class User extends Sequelize.Model {
 
@@ -6,7 +9,7 @@ class User extends Sequelize.Model {
 		return super.init({	
 			username: DataTypes.STRING,
 			email: DataTypes.STRING,
-			password: DataTypes.VIRTUAL,
+			passwordLiteral: DataTypes.VIRTUAL,
 			passwordHash: DataTypes.STRING
 		}, 
 		{ sequelize });
@@ -45,11 +48,11 @@ class User extends Sequelize.Model {
 
 	hashPassword() {
 		return new Promise((resolve) => {
-			if(this.password) {
-				bcrypt.hash(this.password, 10)
+			if(this.passwordLiteral) {
+				bcrypt.hash(this.passwordLiteral, 10)
 				.then((hash) => {
 					this.passwordHash = hash;
-					this.password = null;
+					this.passwordLiteral = null;
 					resolve(this);
 				});
 			} else {

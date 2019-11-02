@@ -8,7 +8,7 @@ class AuthorizationRepository extends EntityRepository {
 		super(Authorization);
 	}
 
-	findByNames = function(names) {
+	findByNames(names) {
 		return Authorization.findAll({
 			where: { name: { [Op.or]: names } }
 		});
@@ -16,4 +16,4 @@ class AuthorizationRepository extends EntityRepository {
 
 }
 
-return new AuthorizationRepository();
+module.exports = new AuthorizationRepository();
