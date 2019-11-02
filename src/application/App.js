@@ -6,7 +6,7 @@ class App {
 	constructor() {
 		this.express = express();
 		this.express.use(bodyParser.json());
-		this.express.use('/users', require('./user/userRoutes'));
+		this.express.use('/authentication', require('./authentication/authenticationController'));
 		this.express.use(errorHandler);
 	}
 
