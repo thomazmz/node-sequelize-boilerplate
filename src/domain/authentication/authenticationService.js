@@ -3,7 +3,7 @@ const emailProvider = require('../../infrastructure/database');
 const userRepository = require('../user/UserRepository');
 const uniqid = require('uniqid');
 
-class UserService {
+class AuthenticationService {
 
 	createSignUpReference(username, email, passwordLiteral) {
 
@@ -23,4 +23,4 @@ class UserService {
 	}
 }
 
-module.exports = new UserService();
+module.exports = new AuthenticationService();
