@@ -13,22 +13,18 @@ const models = {};
 const files = getFiles(domain);
 
 files.forEach(file => {
-	console.log(file);
 	const File = require(file);
 	const model = File.init(sequelize, Sequelize);
 	models[model.name] = model;
 });
 
 function getFiles(relativePath) {
-
 	const paths = getPaths(path.join(__dirname, relativePath));
-
-	const files = paths.filter(path => {
-		const file = require(path);
-		return file.prototype instanceof Sequelize.Model;
+	return paths.filter(filePath => {
+		const file = require(filePath);
+		if(file.prototype instanceof Sequelize.Model) return true;
+		else delete require.cache[filePath];
 	});
-
-	return files;
 }
 
 function getPaths(globalPath, filePaths) {
@@ -56,30 +52,3 @@ Object.values(models)
 	.forEach(model => model.associate(models));
   
 module.exports = { ...models, sequelize };
-
-
-
-
-// const config = require('./config');
-// const Sequelize = require("sequelize");
-// const sequelize = new Sequelize(config[process.env.NODE_ENVIRONMENT])
-
-
-// const UserModel = require("../../domain/user/User");
-// const AuthorizationModel = require("../../domain/authorization/Authorization");
-
-// const models = {
-//   User: UserModel.init(sequelize, Sequelize),
-//   Authorization: AuthorizationModel.init(sequelize, Sequelize)
-// };
-
-// Object.values(models)
-//   .filter(model => typeof model.associate === "function")
-//   .forEach(model => model.associate(models));
-
-// const db = {
-//   ...models,
-//   sequelize
-// };
-
-// module.exports = db;

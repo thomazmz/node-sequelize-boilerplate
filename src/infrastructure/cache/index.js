@@ -22,7 +22,7 @@ module.exports = {
 			})
 		});
 	},
-	
+
 	get: (key) => {
 		return new Promise((resolve, reject) => {
 			client.get(key, (err, value) => {
