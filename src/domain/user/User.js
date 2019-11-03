@@ -2,7 +2,6 @@ const Sequelize = require("sequelize");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
 class User extends Sequelize.Model {
 
 	static init(sequelize, DataTypes) {

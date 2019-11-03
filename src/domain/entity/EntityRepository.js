@@ -4,7 +4,7 @@ class EntityRepository {
 		this._model = model;
 	}
 
-	findAllOrderedBy(attribute="id", offset, limit=100) {
+	findListOrderedBy(attribute="id", offset, limit=100) {
 		return User.findAndCountAll({
 			order: [[attribute, 'ASC']],
 			limit: limit,
