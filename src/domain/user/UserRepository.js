@@ -2,6 +2,7 @@ const EntityRepository = require('../entity/EntityRepository');
 const { User } = require('../../infrastructure/database');
 const Op = require('sequelize').Op;
 
+
 class UserRepository extends EntityRepository {
 
 	constructor() {
@@ -9,15 +10,9 @@ class UserRepository extends EntityRepository {
 	}
 
 	findOrderedBy(column="email", offset, limit=2) {
-		super.findOrderedBy(column, offset, limit);
+		return super.findOrderedBy(column, offset, limit);
 	}
-
-	findOneById(id) {
-		return User.findOne({
-			where: { id }
-		});
-	}
-
+	
 	findOneByEmail(email) {
 		return User.findOne({ 
 			where: { email } 
@@ -38,4 +33,4 @@ class UserRepository extends EntityRepository {
 
 }
 
-module.exports = new UserRepository();
+module.exports = (module) => new UserRepository();
