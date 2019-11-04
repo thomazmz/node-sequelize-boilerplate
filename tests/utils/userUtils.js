@@ -1,35 +1,39 @@
 const { sequelize } = require('../../src/infrastructure/database');
 const { User } = require('../../src/infrastructure/database');
-const uniqid = require('uniqid');
+const uuid = require('uuid/v4');
 
 class UserTestUtils {
 	
-	static async createMany(numberOfUsers) {
+	static async createMany(numberOfUsers, users) {
+		users = users || [];
 		if(numberOfUsers > 0) {
-			await UserTestUtils.ceateUser();
-			UserTestUtils.createMany(numberOfUsers-1);
+			const user = await UserTestUtils.create();
+			users.push(user);
+			return await UserTestUtils.createMany(numberOfUsers-1, users);
+		} else {
+			return users;
 		}
 	}
 
 	static async create(optionalParams) {
 		const userParams = UserTestUtils.getParameters(optionalParams);
 		const user = await User.build(userParams);
-		user.save();
+		await user.hashPassword();
+		await user.save();
 		return user;
 	}
 
 	static async build(userParams) {
 		userParams = UserTestUtils.getParameters(userParams);
 		const user = User.build(userParams);
-		await user.hashPassword();
 		return user;
 	}
 
 	static getParameters(optionalParams) {
-		const identifier = uniqid();
+		const identifier = uuid();
 		return {
-			username: optionalParams && optionalParams.username ? optionalParams.username : `Mary Doe ${identifier}`,
-			email: optionalParams && optionalParams.email ? optionalParams.email : `mary.doe.${identifier}@email.com`,
+			username: optionalParams && optionalParams.username ? optionalParams.username : `${identifier}`,
+			email: optionalParams && optionalParams.email ? optionalParams.email : `${identifier}@email.com`,
 			passwordLiteral: optionalParams && optionalParams.passwordLiteral ? optionalParams.passwordLiteral : identifier
 		}
 	}
