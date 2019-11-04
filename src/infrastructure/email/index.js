@@ -5,9 +5,9 @@ sgMail.setApiKey(config[process.env.NODE_ENVIRONMENT]);
 
 module.exports = {
 
-    send: (message) => {
-        console.log(`Your verification code is: ${message}`);
-    }
+	send: (message) => {
+		console.log(`Your verification code is: ${message}`);
+	}
 
     // send : (message) => {
     //     sgMail.send({
