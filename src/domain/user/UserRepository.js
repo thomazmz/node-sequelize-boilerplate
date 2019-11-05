@@ -2,7 +2,6 @@ const EntityRepository = require('../entity/EntityRepository');
 const { User } = require('../../infrastructure/database');
 const Op = require('sequelize').Op;
 
-
 class UserRepository extends EntityRepository {
 
 	constructor() {

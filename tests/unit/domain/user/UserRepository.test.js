@@ -1,24 +1,8 @@
 var arraySort = require('array-sort');
 const utils = require('../../../utils');
-const userRepository = require('../../../../src/domain/user/UserRepository')('Test');
+const userRepository = require('../../../../src/domain/user/UserRepository');
 
 describe('UserService tests', () => {
-
-	// it('should find users ordered by email', async () => {
-
-	// 	const unorderedUsers = await utils.user.createMany(10);
-		
-	// 	const orderedUsers = unorderedUsers.slice();
-	// 	arraySort(orderedUsers, 'email');
-
-	// 	const users = await userRepository.findAll();
-
-	// 	console.log('result', users.length);
-	// 	console.log('unordered', unorderedUsers.map(user => user.email));
-	// 	console.log('ordered', orderedUsers.map(user => user.email));
-	// 	// console.log('users', users.rows.map(user => user.email));
-		
-	// });
 
 	it('should find user by email', async () => {
 		const user = await utils.user.create();

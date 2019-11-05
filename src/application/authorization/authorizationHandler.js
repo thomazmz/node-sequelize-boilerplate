@@ -2,7 +2,7 @@ module.exports = {
 
 	has: (authorization) => {
 		return (req, res, next) => {
-			console.log(authorization.name);
+			console.log('User must have authority to ',authorization.name);
 			next();
 		}
 	}

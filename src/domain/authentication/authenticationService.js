@@ -1,11 +1,14 @@
 const cacheProvider = require('../../infrastructure/cache');
-const emailProvider = require('../../infrastructure/database');
+const emailProvider = require('../../infrastructure/email');
 const userRepository = require('../user/UserRepository');
-const uniqid = require('uniqid');
+const base64json = require('base64json');
+const uuidv4 = require('uuid/v4');
 
 class AuthenticationService {
 
 	createSignUpReference(username, email, passwordLiteral) {
+		
+		const secret = uuidv4();
 
 		const user = userRepository.build({ username, email, passwordLiteral });
 		const token = user.getBarearToken(secret, { 
@@ -14,12 +17,17 @@ class AuthenticationService {
 			passwordHash: user.passwordHash
 		});
 
-		const secret = uniqid();
 		const key = user.username;
 		return Promise.all([
 			cacheProvider.setex(`UserSignUp:${key}`, token, 3600),
-			emailProvider.send(base64.encodeJson({ key, secret }))
+			emailProvider.send(base64json.stringify({ key, secret }))
 		]);
+	}
+
+	validateSignUpReference(encodedPayload) {
+		return new Promise((resolve, reject) => {
+			reject('Custom Error Message')
+		});
 	}
 }
 
