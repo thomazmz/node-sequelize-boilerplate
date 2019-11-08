@@ -7,7 +7,7 @@ class UserRepository extends EntityRepository {
 	constructor() {
 		super(User);
 	}
-
+	
 	findOrderedBy(column="email", offset, limit=2) {
 		return super.findOrderedBy(column, offset, limit);
 	}
@@ -32,4 +32,4 @@ class UserRepository extends EntityRepository {
 
 }
 
-module.exports = (module) => new UserRepository();
+module.exports = new UserRepository();

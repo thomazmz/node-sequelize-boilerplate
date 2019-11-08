@@ -20,13 +20,9 @@ class User extends Sequelize.Model {
 			foreignKey : 'roleId'
 		}); 
 	}
-	
-	getBarearToken(secret='secret', payload) {
-		payload = payload || { id : this.id };
-		return jwt.sign(payload, secret);
-	}
 
-	verifyToken(token, secret='secret') {
+	// FIXME : Find a better way to store the 'secret'
+	static verifyToken(token, secret='secret') {
 		return new Promise((resolve, reject) => {
 			jwt.verify(token, secret, (err, decodedToken) => {
 				if(err) {
@@ -36,6 +32,12 @@ class User extends Sequelize.Model {
 				}
 			});
 		});
+	}
+
+	// FIXME : Find a better way to store the 'secret'
+	getBarearToken(secret='secret', payload) {
+		payload = payload || { id : this.id };
+		return jwt.sign(payload, secret);
 	}
 
 	verifyPassword(passwordLiteral) {
