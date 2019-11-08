@@ -33,6 +33,7 @@ class AuthenticationService {
 		return new Promise(async (resolve, reject) => {
 
 			try {
+				// FIXME : This library (base64json) does not handle parsing errors
 				const decodedPayload = base64json.parse(encodedPayload);
 				if(!decodedPayload) reject(new InvalidArgumentError('Malformed payload'));
 
