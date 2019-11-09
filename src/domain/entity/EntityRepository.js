@@ -22,7 +22,6 @@ class EntityRepository {
 		});
 	}
 
-
 	build(parameters) {
 		return this._model.build(parameters);
 	}

@@ -1,6 +1,5 @@
 const InvalidArgumentError = require('../../domain/error/InvalidArgumentError');
 const RequestError = require('../error/RequestError');
-
 const authenticationService = require('../../domain/authentication/AuthenticationService');
 const userRepository = require('../../domain/user/UserRepository');
 const cacheProvider = require('../../infrastructure/cache');

@@ -9,7 +9,7 @@ Sequelize.useCLS(cls.createNamespace('applicationNamespace'));
 sequelize = new Sequelize(config[process.env.NODE_ENVIRONMENT]);
 
 models = {
-	Authorization: require('../../domain/authorization/Authorization'),
+	Authority: require('../../domain/authority/Authority'),
 	Role: require('../../domain/role/Role.js'),
 	User: require('../../domain/user/User.js')
 }

@@ -25,7 +25,6 @@ class UserRepository extends EntityRepository {
 	}
 
 	findOneByStringIdentifier(stringIdentifier) {
-		console.log(stringIdentifier);
 		return User.findOne({
 			where: { [Op.or] : { username: stringIdentifier, email: stringIdentifier } }
 		});

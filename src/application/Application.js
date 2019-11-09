@@ -9,7 +9,7 @@ class App {
 		this.express = express();
 		this.express.use(bodyParser.json());
 		this.express.use('/authentication', require('./authentication/authenticationRoutes'));
-		this.express.use('/authorization', require('./authorization/authorizationRoutes'));
+		this.express.use('/authority', require('./authority/authorityRoutes'));
 		this.express.use(errorHandler);
 	}
 

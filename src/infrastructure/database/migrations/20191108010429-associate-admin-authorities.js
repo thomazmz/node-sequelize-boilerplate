@@ -4,7 +4,7 @@ module.exports = {
 	up: (queryInterface, Sequelize) => {
     	return Promise.all([		
 			queryInterface.sequelize.query( 
-				`SELECT * from "Authorization" WHERE name IN (` +
+				`SELECT * from "Authority" WHERE name IN (` +
 				`'ReadUsersRoles',` +
 				`'UpdateUsersRoles',` +
 				`'ReadRoles',` +
@@ -17,20 +17,20 @@ module.exports = {
 				{ type: queryInterface.sequelize.QueryTypes.SELECT }
 			)
 		]).then((results) => {
-			const authorizations = results[0];
+			const authorities = results[0];
 			const role = results[1][0];
-			const authorizationsByRole = [];
-			authorizations.forEach(authorization => {
-				authorizationsByRole.push({
+			const authoritiesByRole = [];
+			authorities.forEach(authority => {
+				authoritiesByRole.push({
 					role_id: role.id,
-					authorization_id: authorization.id
+					authority_id: authority.id
 				})
 			})
-			return queryInterface.bulkInsert('AuthorizationByRole', authorizationsByRole);
+			return queryInterface.bulkInsert('AuthorityByRole', authoritiesByRole);
 		})
 	},
 
 	down: (queryInterface, Sequelize) => {
-		return queryInterface.bulkDelete('AuthorizationByRole', null, {});	
+		return queryInterface.bulkDelete('AuthorityByRole', null, {});	
 	}
 };

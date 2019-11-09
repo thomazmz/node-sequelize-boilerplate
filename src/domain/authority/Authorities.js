@@ -1,4 +1,4 @@
-const authorizations = {
+const authorities = {
 
 	READ_USERS_ROLES: { name: 'ReadUsersRoles' },
 	UPDATE_USERS_ROLES: { name: 'UpdateUsersRoles' },
@@ -8,4 +8,4 @@ const authorizations = {
 
 }
 
-module.exports = Object.freeze(authorizations);
+module.exports = Object.freeze(authorities);

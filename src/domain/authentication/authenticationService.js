@@ -47,38 +47,32 @@ class AuthenticationService {
 		const user = await userRepository.create({ username, email, passwordHash });
 
 		return user;
-
 	}
 
 	async createPasswordResetReference(identifier) {
 
 		const user = await userRepository.findOneByStringIdentifier(identifier);
-		if(!user) throw new InvalidArgumentError();
 
-		const validationToken = await cacheProvider.get(`RESET_PASSWORD_${user.id}`);
-		if(validationToken) cacheProvider.delete(`RESET_PASSWORD_${user.id}`);
+		if(user) {
 
-		const referenceSecret = uuid();
-		const token = user.getBarearToken(referenceSecret + applicationSecret, { identifier });
-
-		await cacheProvider.setex(`RESET_PASSWORD_${user.id}`, token, 1200);
-		await emailProvider.send(base64json.stringify({ identifier, referenceSecret }));
-
+			const validationToken = await cacheProvider.get(`RESET_PASSWORD_${user.id}`);
+			if(validationToken) cacheProvider.delete(`RESET_PASSWORD_${user.id}`);
+	
+			const referenceSecret = uuid();
+			const token = user.getBarearToken(referenceSecret + applicationSecret, { identifier });
+	
+			await cacheProvider.setex(`RESET_PASSWORD_${user.id}`, token, 1200);
+			await emailProvider.send(base64json.stringify({ identifier, referenceSecret }));
+		}
 	}
 
 	async resetPassword(encodedPayload, passwordLiteral) {
 
 		const decodedPayload = base64json.parse(encodedPayload);
-		if(!decodedPayload) {
-			console.log('hahahah');
-			throw new InvalidArgumentError();
-		}
+		if(!decodedPayload) throw new InvalidArgumentError();
 
 		const user = await userRepository.findOneByStringIdentifier(decodedPayload.identifier);
-		if(!user) {
-			console.log('hahahah2');
-			throw new InvalidArgumentError();
-		}
+		if(!user) throw new InvalidArgumentError();
 
 		const validationToken = await cacheProvider.get(`RESET_PASSWORD_${user.id}`);
 		if(!validationToken) throw new InvalidArgumentError();
@@ -88,7 +82,6 @@ class AuthenticationService {
 		user.passwordLiteral = passwordLiteral;
 		await user.hashPassword();
 		await user.save();
-
 	}
 }
 

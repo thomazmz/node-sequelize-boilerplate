@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
-		return queryInterface.createTable('AuthorizationByRole', {
+		return queryInterface.createTable('AuthorityByRole', {
 			role_id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
@@ -10,15 +10,15 @@ module.exports = {
 				onDelete: 'CASCADE',
 				primaryKey: true
 			},
-			authorization_id: {
+			authority_id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
-				references: { model: 'Authorization', key: 'id' },
+				references: { model: 'Authority', key: 'id' },
 				onDelete: 'CASCADE',
 				primaryKey: true
 			},
 		}).then(() => {
-			return queryInterface.addConstraint('AuthorizationByRole', ['role_id', 'authorization_id'], {
+			return queryInterface.addConstraint('AuthorityByRole', ['role_id', 'authority_id'], {
 				type: 'unique'
 			})
 		})

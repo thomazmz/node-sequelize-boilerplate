@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const Authorizations = require('./Authorizations');
+const Authorities = require('./Authorities');
 
-class Authorization extends Sequelize.Model {
+class Authority extends Sequelize.Model {
 
 	static init(sequelize, DataTypes) {
 		return super.init({
@@ -11,16 +11,16 @@ class Authorization extends Sequelize.Model {
 	}
 
 	static associate(models) {
-		this.belongsToMany(models.Authorization, {
+		this.belongsToMany(models.Authority, {
 			as: 'roles',
-			through : 'AuthorizationByRole',
+			through : 'AuthorityByRole',
 			foreignKey : 'roleId'
 		});
 	}
 
 	static get to() { 
-		return Authorizations;
+		return Authorities;
 	}
 }
 
-module.exports = Authorization;
+module.exports = Authority;
