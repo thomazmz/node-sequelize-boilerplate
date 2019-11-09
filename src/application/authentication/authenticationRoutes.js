@@ -8,6 +8,12 @@ router.post('/signin',
 	controller.signIn);
 
 router.post('/signup/:payload', 
-	controller.validate);
+	controller.validateSignUp);
+
+router.post('/reset',
+	controller.resetPassword)
+
+router.post('/reset/:payload',
+	controller.resetPassword)
 
 module.exports = router;

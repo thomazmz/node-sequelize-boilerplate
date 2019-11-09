@@ -26,7 +26,7 @@ module.exports = {
 		.catch(err => next(err));
 	},
 
-	validate: (req, res, next) => {
+	validateSignUp: (req, res, next) => {
 		authenticationService.validateSignUpReference(req.params.payload)
 		.then(user => user.getBarearToken())
 		.then(token => res.status(200).send({ token }))
@@ -34,5 +34,11 @@ module.exports = {
 			if (err instanceof InvalidArgumentError) next(new RequestError(422, { message : 'Invalid token.' }));
 			else next(err);
 		});
+	},
+
+	resetPassword: (req, res, next) => {
+		authenticationService.createPasswordResetReference(req.body.email)
+		.then(token => res.status(200).send())
+		.catch(err => next(err));
 	}
 }
